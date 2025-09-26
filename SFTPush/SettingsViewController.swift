@@ -272,6 +272,7 @@ class SettingsViewController: NSViewController {
             if result == .OK {
                 if let url = openPanel.url {
                     self?.folderPathTextField.stringValue = url.path
+                    self?.saveSettings() // Сохраняем настройки немедленно
                 }
             }
         }

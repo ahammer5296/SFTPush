@@ -15,10 +15,12 @@ class FolderMonitor: NSObject {
     
     var folderPath: String = "/Users/alex/Downloads/ScreenShots/Monosnap" {
         didSet {
-            // Если путь изменился, останавливаем и перезапускаем мониторинг
+            // Если путь изменился, останавливаем, перенастраиваем папки и перезапускаем мониторинг
             if isMonitoring {
                 stopMonitoring()
-                startMonitoring()
+                if setupFolders() {
+                    startMonitoring()
+                }
             }
         }
     }
