@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA2AA8202E8491D200560D7A /* mft.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2AA81F2E8491D200560D7A /* mft.framework */; };
+		FA2AA8212E8491D200560D7A /* mft.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA2AA81F2E8491D200560D7A /* mft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FA16558F2E843D0800ADD6F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA1655752E843D0600ADD6F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA16557C2E843D0600ADD6F8;
+			remoteInfo = SFTPush;
+		};
+		FA1655992E843D0800ADD6F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA1655752E843D0600ADD6F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA16557C2E843D0600ADD6F8;
+			remoteInfo = SFTPush;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FA2AA8222E8491D200560D7A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA2AA8212E8491D200560D7A /* mft.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FA16557D2E843D0600ADD6F8 /* SFTPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFTPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA16558E2E843D0800ADD6F8 /* SFTPushTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTPushTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1655982E843D0800ADD6F8 /* SFTPushUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTPushUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA2AA81F2E8491D200560D7A /* mft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mft.framework; sourceTree = "<group>"; };
+		FAAD233D2E85C9490046F0EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = SFTPush/Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FA4996702E86EF5600FFC9D9 /* Exceptions for "SFTPush" folder in "SFTPush" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FA16557C2E843D0600ADD6F8 /* SFTPush */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		FA16557F2E843D0600ADD6F8 /* SFTPush */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FA4996702E86EF5600FFC9D9 /* Exceptions for "SFTPush" folder in "SFTPush" target */,
+			);
+			path = SFTPush;
+			sourceTree = "<group>";
+		};
+		FA1655912E843D0800ADD6F8 /* SFTPushTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SFTPushTests;
+			sourceTree = "<group>";
+		};
+		FA16559B2E843D0800ADD6F8 /* SFTPushUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SFTPushUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA16557A2E843D0600ADD6F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA2AA8202E8491D200560D7A /* mft.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA16558B2E843D0800ADD6F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1655952E843D0800ADD6F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA1655742E843D0600ADD6F8 = {
+			isa = PBXGroup;
+			children = (
+				FAAD233D2E85C9490046F0EE /* Assets.xcassets */,
+				FA16557F2E843D0600ADD6F8 /* SFTPush */,
+				FA1655912E843D0800ADD6F8 /* SFTPushTests */,
+				FA16559B2E843D0800ADD6F8 /* SFTPushUITests */,
+				FA16557E2E843D0600ADD6F8 /* Products */,
+				FA37BE442E848C8900051617 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FA16557E2E843D0600ADD6F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA16557D2E843D0600ADD6F8 /* SFTPush.app */,
+				FA16558E2E843D0800ADD6F8 /* SFTPushTests.xctest */,
+				FA1655982E843D0800ADD6F8 /* SFTPushUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA37BE442E848C8900051617 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA2AA81F2E8491D200560D7A /* mft.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA16557C2E843D0600ADD6F8 /* SFTPush */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1655A22E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPush" */;
+			buildPhases = (
+				FA1655792E843D0600ADD6F8 /* Sources */,
+				FA16557A2E843D0600ADD6F8 /* Frameworks */,
+				FA16557B2E843D0600ADD6F8 /* Resources */,
+				FA2AA8222E8491D200560D7A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FA16557F2E843D0600ADD6F8 /* SFTPush */,
+			);
+			name = SFTPush;
+			packageProductDependencies = (
+			);
+			productName = SFTPush;
+			productReference = FA16557D2E843D0600ADD6F8 /* SFTPush.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FA16558D2E843D0800ADD6F8 /* SFTPushTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1655A52E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPushTests" */;
+			buildPhases = (
+				FA16558A2E843D0800ADD6F8 /* Sources */,
+				FA16558B2E843D0800ADD6F8 /* Frameworks */,
+				FA16558C2E843D0800ADD6F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA1655902E843D0800ADD6F8 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FA1655912E843D0800ADD6F8 /* SFTPushTests */,
+			);
+			name = SFTPushTests;
+			packageProductDependencies = (
+			);
+			productName = SFTPushTests;
+			productReference = FA16558E2E843D0800ADD6F8 /* SFTPushTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FA1655972E843D0800ADD6F8 /* SFTPushUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1655A82E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPushUITests" */;
+			buildPhases = (
+				FA1655942E843D0800ADD6F8 /* Sources */,
+				FA1655952E843D0800ADD6F8 /* Frameworks */,
+				FA1655962E843D0800ADD6F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA16559A2E843D0800ADD6F8 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FA16559B2E843D0800ADD6F8 /* SFTPushUITests */,
+			);
+			name = SFTPushUITests;
+			packageProductDependencies = (
+			);
+			productName = SFTPushUITests;
+			productReference = FA1655982E843D0800ADD6F8 /* SFTPushUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA1655752E843D0600ADD6F8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					FA16557C2E843D0600ADD6F8 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					FA16558D2E843D0800ADD6F8 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = FA16557C2E843D0600ADD6F8;
+					};
+					FA1655972E843D0800ADD6F8 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = FA16557C2E843D0600ADD6F8;
+					};
+				};
+			};
+			buildConfigurationList = FA1655782E843D0600ADD6F8 /* Build configuration list for PBXProject "SFTPush" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA1655742E843D0600ADD6F8;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = FA16557E2E843D0600ADD6F8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA16557C2E843D0600ADD6F8 /* SFTPush */,
+				FA16558D2E843D0800ADD6F8 /* SFTPushTests */,
+				FA1655972E843D0800ADD6F8 /* SFTPushUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA16557B2E843D0600ADD6F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA16558C2E843D0800ADD6F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1655962E843D0800ADD6F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA1655792E843D0600ADD6F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA16558A2E843D0800ADD6F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1655942E843D0800ADD6F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA1655902E843D0800ADD6F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA16557C2E843D0600ADD6F8 /* SFTPush */;
+			targetProxy = FA16558F2E843D0800ADD6F8 /* PBXContainerItemProxy */;
+		};
+		FA16559A2E843D0800ADD6F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA16557C2E843D0600ADD6F8 /* SFTPush */;
+			targetProxy = FA1655992E843D0800ADD6F8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FA1655A02E843D0800ADD6F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "/Users/alex/Library/Developer/Xcode/DerivedData/mft-drkppoxotrsmyqbfbpcvgfycvmrp/Build/Products/Debug";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FA1655A12E843D0800ADD6F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		FA1655A32E843D0800ADD6F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SFTPush/SFTPush.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SFTPush/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPush;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FA1655A42E843D0800ADD6F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SFTPush/SFTPush.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SFTPush/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPush;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FA1655A62E843D0800ADD6F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPushTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SFTPush.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SFTPush";
+			};
+			name = Debug;
+		};
+		FA1655A72E843D0800ADD6F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPushTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SFTPush.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SFTPush";
+			};
+			name = Release;
+		};
+		FA1655A92E843D0800ADD6F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPushUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SFTPush;
+			};
+			name = Debug;
+		};
+		FA1655AA2E843D0800ADD6F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPushUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SFTPush;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA1655782E843D0600ADD6F8 /* Build configuration list for PBXProject "SFTPush" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1655A02E843D0800ADD6F8 /* Debug */,
+				FA1655A12E843D0800ADD6F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1655A22E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPush" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1655A32E843D0800ADD6F8 /* Debug */,
+				FA1655A42E843D0800ADD6F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1655A52E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPushTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1655A62E843D0800ADD6F8 /* Debug */,
+				FA1655A72E843D0800ADD6F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1655A82E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPushUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1655A92E843D0800ADD6F8 /* Debug */,
+				FA1655AA2E843D0800ADD6F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA1655752E843D0600ADD6F8 /* Project object */;
+}
