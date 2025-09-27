@@ -100,6 +100,11 @@ class SettingsViewController: NSViewController {
 
     private func setupGeneralTab(in view: NSView) {
         // Folder Selection Section
+        let folderTitle = NSTextField(labelWithString: "Папка для отслеживания")
+        folderTitle.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
+        folderTitle.textColor = NSColor.labelColor
+        folderTitle.translatesAutoresizingMaskIntoConstraints = false
+
         let folderSection = NSStackView()
         folderSection.orientation = .horizontal
         folderSection.alignment = .centerY
@@ -111,6 +116,17 @@ class SettingsViewController: NSViewController {
 
         folderSection.addArrangedSubview(folderPathTextField)
         folderSection.addArrangedSubview(selectFolderButton)
+
+        // Add title and folder section to main container
+        let folderContainer = NSStackView()
+        folderContainer.orientation = .vertical
+        folderContainer.alignment = .leading
+        folderContainer.spacing = 5
+        folderContainer.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(folderContainer)
+
+        folderContainer.addArrangedSubview(folderTitle)
+        folderContainer.addArrangedSubview(folderSection)
 
         // Behavior Section
         let behaviorSection = NSStackView()
@@ -307,6 +323,11 @@ class SettingsViewController: NSViewController {
         hotkeyTitle.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
         hotkeyTitle.textColor = NSColor.labelColor
 
+        let hotkeyDescription = NSTextField(labelWithString: "Отправить изображение из буфера на сервер:")
+        hotkeyDescription.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
+        hotkeyDescription.textColor = NSColor.secondaryLabelColor
+        hotkeyDescription.translatesAutoresizingMaskIntoConstraints = false
+
         let hotkeyControlsStack = NSStackView()
         hotkeyControlsStack.orientation = .horizontal
         hotkeyControlsStack.alignment = .centerY
@@ -322,6 +343,7 @@ class SettingsViewController: NSViewController {
         hotkeyControlsStack.addArrangedSubview(clearHotkeyButton)
 
         hotkeySection.addArrangedSubview(hotkeyTitle)
+        hotkeySection.addArrangedSubview(hotkeyDescription)
         hotkeySection.addArrangedSubview(hotkeyControlsStack)
 
         stackView.addArrangedSubview(clipboardSection)
