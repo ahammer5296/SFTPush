@@ -177,6 +177,7 @@ class SettingsViewController: NSViewController {
         // Text Field Settings
         folderPathTextField.placeholderString = "Путь к папке для отслеживания"
         folderPathTextField.isEditable = false
+        folderPathTextField.delegate = self // Устанавливаем делегат для обработки длинных путей
 
         // Constraints
         NSLayoutConstraint.activate([
@@ -191,7 +192,7 @@ class SettingsViewController: NSViewController {
     }
 
     override func loadView() {
-        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 480, height: 500)) // Увеличиваем размер окна
+        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 480, height: 400)) // Оптимизированный размер окна
     }
 
     private func setupSFTPTab(in view: NSView) {
@@ -388,6 +389,72 @@ class SettingsViewController: NSViewController {
         } else {
             hotkeyRecorderView.currentKeyCombo = nil
         }
+
+        // Update folder path display with truncation if needed
+        updateFolderPathDisplay()
+    }
+
+    private func updateFolderPathDisplay() {
+        let fullPath = folderPathTextField.stringValue
+        if !fullPath.isEmpty {
+            let truncatedPath = truncatePath(fullPath, maxLength: 45)
+            // Обновляем только если путь действительно изменился (чтобы избежать бесконечной рекурсии)
+            if folderPathTextField.stringValue != truncatedPath {
+                folderPathTextField.stringValue = truncatedPath
+            }
+        }
+    }
+
+    private func truncatePath(_ path: String, maxLength: Int) -> String {
+        // Если путь короче максимальной длины, возвращаем как есть
+        if path.count <= maxLength {
+            return path
+        }
+
+        // Находим компоненты пути
+        let components = path.split(separator: "/", omittingEmptySubstrings: true)
+        guard components.count > 1 else {
+            return path
+        }
+
+        // Пытаемся сократить путь, показывая начало и конец
+        let startComponent = components.first ?? ""
+        let endComponents = Array(components.dropFirst())
+
+        // Вычисляем доступную длину для конечных компонентов
+        let availableLength = maxLength - (startComponent + ".../").count - 1
+
+        var result = "/\(startComponent)"
+
+        // Добавляем конечные компоненты, если есть место
+        if availableLength > 0 {
+            var remainingComponents = endComponents
+            var currentLength = 0
+
+            // Идем с конца, пока помещается
+            while !remainingComponents.isEmpty {
+                let component = remainingComponents.last ?? ""
+                let componentWithSlash = "/\(component)"
+
+                if currentLength + componentWithSlash.count <= availableLength {
+                    result += componentWithSlash
+                    currentLength += componentWithSlash.count
+                    remainingComponents.removeLast()
+                } else {
+                    break
+                }
+            }
+
+            // Если есть оставшиеся компоненты, добавляем троеточие
+            if !remainingComponents.isEmpty {
+                result += "/..."
+            }
+        } else {
+            result += "/..."
+        }
+
+        return result
+    }
     }
 
     func saveSettings() {
