@@ -352,46 +352,46 @@ class SettingsViewController: NSViewController {
 
     private func loadSettings() {
         let defaults = UserDefaults.standard
-        
+
         // General Settings
-        folderPathTextField.stringValue = defaults.string(forKey: "folderPath") ?? FolderMonitor.shared.folderPath
-        showNotificationsCheckbox.state = defaults.bool(forKey: "showNotifications") ? .on : .off
-        enableSoundCheckbox.state = defaults.bool(forKey: "enableSound") ? .on : .off
-        startMonitoringOnLaunchCheckbox.state = defaults.bool(forKey: "startMonitoringOnLaunch") ? .on : .off
-        launchAtSystemStartupCheckbox.state = defaults.bool(forKey: "launchAtSystemStartup") ? .on : .off // Читаем из UserDefaults
-        renameFileOnUploadCheckbox.state = defaults.bool(forKey: "renameFileOnUpload") ? .on : .off
-        showDockIconCheckbox.state = defaults.bool(forKey: "showDockIcon") ? .on : .off
+        self.folderPathTextField.stringValue = defaults.string(forKey: "folderPath") ?? FolderMonitor.shared.folderPath
+        self.showNotificationsCheckbox.state = defaults.bool(forKey: "showNotifications") ? .on : .off
+        self.enableSoundCheckbox.state = defaults.bool(forKey: "enableSound") ? .on : .off
+        self.startMonitoringOnLaunchCheckbox.state = defaults.bool(forKey: "startMonitoringOnLaunch") ? .on : .off
+        self.launchAtSystemStartupCheckbox.state = defaults.bool(forKey: "launchAtSystemStartup") ? .on : .off // Читаем из UserDefaults
+        self.renameFileOnUploadCheckbox.state = defaults.bool(forKey: "renameFileOnUpload") ? .on : .off
+        self.showDockIconCheckbox.state = defaults.bool(forKey: "showDockIcon") ? .on : .off
 
         // Clipboard Upload Settings
         let savedFormat = defaults.string(forKey: "clipboardUploadFormat") ?? "png"
-        clipboardFormatControl.selectedSegment = (savedFormat == "png") ? 0 : 1
+        self.clipboardFormatControl.selectedSegment = (savedFormat == "png") ? 0 : 1
         let savedQuality = defaults.integer(forKey: "clipboardJpgQuality")
-        jpgQualitySlider.doubleValue = (savedQuality == 0) ? 80 : Double(savedQuality) // Default to 80 if not set
-        jpgQualityValueLabel.stringValue = "\(Int(jpgQualitySlider.doubleValue))"
-        updateJpgQualityVisibility() // Обновляем видимость элементов качества JPG
+        self.jpgQualitySlider.doubleValue = (savedQuality == 0) ? 80 : Double(savedQuality) // Default to 80 if not set
+        self.jpgQualityValueLabel.stringValue = "\(Int(self.jpgQualitySlider.doubleValue))"
+        self.updateJpgQualityVisibility() // Обновляем видимость элементов качества JPG
 
         // SFTP Settings
-        sftpHostTextField.stringValue = defaults.string(forKey: "sftpHost") ?? ""
-        sftpPortTextField.stringValue = defaults.string(forKey: "sftpPort") ?? "22"
-        sftpUserTextField.stringValue = defaults.string(forKey: "sftpUser") ?? ""
-        sftpPasswordSecureTextField.stringValue = defaults.string(forKey: "sftpPassword") ?? ""
-        sftpFolderTextField.stringValue = defaults.string(forKey: "sftpFolder") ?? "/"
-        sftpBaseUrlTextField.stringValue = defaults.string(forKey: "sftpBaseUrl") ?? ""
-        
+        self.sftpHostTextField.stringValue = defaults.string(forKey: "sftpHost") ?? ""
+        self.sftpPortTextField.stringValue = defaults.string(forKey: "sftpPort") ?? "22"
+        self.sftpUserTextField.stringValue = defaults.string(forKey: "sftpUser") ?? ""
+        self.sftpPasswordSecureTextField.stringValue = defaults.string(forKey: "sftpPassword") ?? ""
+        self.sftpFolderTextField.stringValue = defaults.string(forKey: "sftpFolder") ?? "/"
+        self.sftpBaseUrlTextField.stringValue = defaults.string(forKey: "sftpBaseUrl") ?? ""
+
         // Update FolderMonitor
-        FolderMonitor.shared.folderPath = folderPathTextField.stringValue
+        FolderMonitor.shared.folderPath = self.folderPathTextField.stringValue
         // SFTP settings will be passed to FolderMonitor when needed (e.g., for upload or test connection)
-        
+
         // Load Hotkey
         if let encodedKeyCombo = defaults.data(forKey: "globalHotkey"),
            let keyCombo = try? JSONDecoder().decode(KeyCombo.self, from: encodedKeyCombo) {
-            hotkeyRecorderView.currentKeyCombo = keyCombo
+            self.hotkeyRecorderView.currentKeyCombo = keyCombo
         } else {
-            hotkeyRecorderView.currentKeyCombo = nil
+            self.hotkeyRecorderView.currentKeyCombo = nil
         }
 
         // Update folder path display with truncation if needed
-        updateFolderPathDisplay()
+        self.updateFolderPathDisplay()
     }
 
     private func updateFolderPathDisplay() {
@@ -630,14 +630,14 @@ extension SettingsViewController: HotkeyRecorderViewDelegate {
 // MARK: - Hotkey Actions
 extension SettingsViewController {
     @objc private func clearHotkeyClicked() {
-        hotkeyRecorderView.clearHotkey()
+        self.hotkeyRecorderView.clearHotkey()
     }
 }
 
 // MARK: - NSTextFieldDelegate for Port field validation
 extension SettingsViewController: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
-        if let textField = obj.object as? NSTextField, textField == sftpPortTextField {
+        if let textField = obj.object as? NSTextField, textField == self.sftpPortTextField {
             // Удаляем все символы, кроме цифр
             let filteredText = textField.stringValue.filter { $0.isNumber }
             if filteredText != textField.stringValue {
