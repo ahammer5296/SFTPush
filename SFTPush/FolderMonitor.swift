@@ -179,7 +179,7 @@ class FolderMonitor: NSObject {
     }
 
     // Новый публичный метод для запуска загрузки из AppDelegate
-    func startBatchUpload(urls: [URL], isMonitored: Bool) {
+    func startBatchUpload(urls: [URL], isMonitored: Bool, deleteAfterUpload: Bool = false) {
         DispatchQueue.main.async {
             if urls.count > 1 {
                 self.batchUploadTotalCount = urls.count
@@ -190,13 +190,13 @@ class FolderMonitor: NSObject {
             }
 
             for url in urls {
-                self.uploadSingleFile(atPath: url.path, isMonitored: isMonitored)
+                self.uploadSingleFile(atPath: url.path, isMonitored: isMonitored, deleteAfterUpload: deleteAfterUpload)
             }
         }
     }
 
     // Метод для загрузки одного файла (используется для Drag & Drop и мониторинга папки)
-    func uploadSingleFile(atPath localFilePath: String, isMonitored: Bool) {
+    func uploadSingleFile(atPath localFilePath: String, isMonitored: Bool, deleteAfterUpload: Bool = false) {
         let defaults = UserDefaults.standard
         let renameFileOnUpload = defaults.bool(forKey: "renameFileOnUpload")
         let sftpHost = defaults.string(forKey: "sftpHost") ?? ""
@@ -253,13 +253,13 @@ class FolderMonitor: NSObject {
                 let publicURL = "\(sftpBaseUrl)\(fileName)"
                 self.copyToPasteboard(text: publicURL)
                 // Уведомляем об успехе
-                self.handleUploadResult(isSuccess: true, fileName: fileName, url: publicURL, error: nil, isMonitored: isMonitored)
+                self.handleUploadResult(isSuccess: true, fileName: fileName, url: publicURL, error: nil, isMonitored: isMonitored, deleteAfterUpload: deleteAfterUpload)
                 
             } catch {
                 // Обработка ошибок
                 print("Ошибка SFTP для файла \(fileName): \(error.localizedDescription)")
                 // Уведомляем об ошибке
-                self.handleUploadResult(isSuccess: false, fileName: fileName, url: nil, error: error.localizedDescription, isMonitored: isMonitored)
+                self.handleUploadResult(isSuccess: false, fileName: fileName, url: nil, error: error.localizedDescription, isMonitored: isMonitored, deleteAfterUpload: deleteAfterUpload)
             }
             // Отключение
             sftpConnection.disconnect()
@@ -335,11 +335,20 @@ extension Notification.Name {
 
 // MARK: - Batch Upload Helper
 private extension FolderMonitor {
-    func handleUploadResult(isSuccess: Bool, fileName: String, url: String?, error: String?, isMonitored: Bool) {
+    func handleUploadResult(isSuccess: Bool, fileName: String, url: String?, error: String?, isMonitored: Bool, deleteAfterUpload: Bool) {
         DispatchQueue.main.async {
+            let fileURL = URL(fileURLWithPath: fileName)
             if isSuccess {
                 if isMonitored {
                     self.moveFile(localFilePath: fileName, toFolder: "Uploaded")
+                } else if deleteAfterUpload {
+                    // Удаляем временный файл после успешной загрузки
+                    do {
+                        try FileManager.default.removeItem(at: fileURL)
+                        print("Временный файл \(fileURL.lastPathComponent) удален после успешной загрузки.")
+                    } catch {
+                        print("Ошибка при удалении временного файла \(fileURL.lastPathComponent): \(error.localizedDescription)")
+                    }
                 }
                 if !self.isBatchInProgress {
                     NotificationCenter.default.post(name: .uploadSuccess, object: nil, userInfo: ["fileName": fileName, "url": url ?? ""])
@@ -349,6 +358,14 @@ private extension FolderMonitor {
             } else {
                 if isMonitored {
                     self.moveFile(localFilePath: fileName, toFolder: "Error")
+                } else if deleteAfterUpload {
+                    // Удаляем временный файл после неудачной загрузки
+                    do {
+                        try FileManager.default.removeItem(at: fileURL)
+                        print("Временный файл \(fileURL.lastPathComponent) удален после неудачной загрузки.")
+                    } catch {
+                        print("Ошибка при удалении временного файла \(fileURL.lastPathComponent): \(error.localizedDescription)")
+                    }
                 }
                 if !self.isBatchInProgress {
                     NotificationCenter.default.post(name: .uploadFailure, object: nil, userInfo: ["fileName": fileName, "error": error ?? "Unknown error"])

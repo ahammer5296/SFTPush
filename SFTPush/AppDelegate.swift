@@ -60,6 +60,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let menu = NSMenu()
 
         // Добавляем пункты меню
+        menu.addItem(NSMenuItem(title: "Загрузить из буфера обмена", action: #selector(uploadFromClipboard), keyEquivalent: "v")) // Новый пункт меню
+        menu.addItem(NSMenuItem.separator()) // Разделитель после нового пункта
         menu.addItem(NSMenuItem(title: "Запустить отслеживание папки", action: #selector(toggleFolderMonitoring), keyEquivalent: ""))
         menu.addItem(NSMenuItem(title: "Статус: Остановлено", action: nil, keyEquivalent: "")) // Этот пункт будет обновляться динамически
         menu.addItem(NSMenuItem.separator())
@@ -190,10 +192,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     func updateMenuStatus() {
         if let menu = statusItem?.menu {
-            if let toggleItem = menu.item(at: 0) { // "Запустить/Остановить отслеживание папки"
+            // Индексы изменились после добавления нового пункта меню и разделителя
+            if let toggleItem = menu.item(at: 2) { // "Запустить/Остановить отслеживание папки"
                 toggleItem.title = FolderMonitor.shared.isMonitoring ? "Остановить отслеживание папки" : "Запустить отслеживание папки"
             }
-            if let statusItem = menu.item(at: 1) { // "Статус: Запущено/Остановлено"
+            if let statusItem = menu.item(at: 3) { // "Статус: Запущено/Остановлено"
                 statusItem.title = FolderMonitor.shared.isMonitoring ? "Статус: Запущено" : "Статус: Остановлено"
             }
         }
@@ -368,6 +371,56 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             let title = "Массовая загрузка завершена"
             let body = "Успешно: \(success) из \(total). Ошибки: \(error)."
             sendNotification(title: title, subtitle: nil, body: body)
+        }
+    }
+
+    // MARK: - Upload from Clipboard
+
+    @objc func uploadFromClipboard() {
+        let pasteboard = NSPasteboard.general
+        guard let image = pasteboard.readObjects(forClasses: [NSImage.self])?.first as? NSImage else {
+            sendNotification(title: "Ошибка", subtitle: nil, body: "В буфере обмена нет изображения.")
+            return
+        }
+
+        guard let tiffData = image.tiffRepresentation,
+              let imageRep = NSBitmapImageRep(data: tiffData) else {
+            sendNotification(title: "Ошибка", subtitle: nil, body: "Не удалось обработать изображение из буфера обмена.")
+            return
+        }
+
+        let defaults = UserDefaults.standard
+        let format = defaults.string(forKey: "clipboardUploadFormat") ?? "png"
+        let quality = defaults.integer(forKey: "clipboardJpgQuality")
+        let compressionFactor = CGFloat(quality) / 100.0
+
+        var imageData: Data?
+        var fileExtension: String
+
+        if format == "jpg" {
+            imageData = imageRep.representation(using: .jpeg, properties: [.compressionFactor: compressionFactor])
+            fileExtension = "jpg"
+        } else { // Default to PNG
+            imageData = imageRep.representation(using: .png, properties: [:])
+            fileExtension = "png"
+        }
+
+        guard let finalImageData = imageData else {
+            sendNotification(title: "Ошибка", subtitle: nil, body: "Не удалось конвертировать изображение в выбранный формат.")
+            return
+        }
+
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let fileName = "clipboard-\(UUID().uuidString).\(fileExtension)"
+        let tempURL = tempDirectory.appendingPathComponent(fileName)
+
+        do {
+            try finalImageData.write(to: tempURL)
+            print("Изображение из буфера обмена сохранено во временный файл: \(tempURL.path)")
+            FolderMonitor.shared.startBatchUpload(urls: [tempURL], isMonitored: false, deleteAfterUpload: true) // Передаем флаг для удаления
+        } catch {
+            sendNotification(title: "Ошибка", subtitle: nil, body: "Не удалось сохранить изображение во временный файл: \(error.localizedDescription)")
+            print("Ошибка сохранения изображения из буфера обмена: \(error.localizedDescription)")
         }
     }
 }

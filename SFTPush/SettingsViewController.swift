@@ -19,6 +19,13 @@ class SettingsViewController: NSViewController {
     let renameFileOnUploadCheckbox = NSButton(checkboxWithTitle: "Изменять имя файла при загрузке", target: nil, action: nil)
     let showDockIconCheckbox = NSButton(checkboxWithTitle: "Показывать иконку приложения в доке", target: nil, action: nil)
 
+    // MARK: - UI Elements (Clipboard Upload Settings)
+    let clipboardFormatLabel = NSTextField(labelWithString: "Формат загрузки из буфера:")
+    let clipboardFormatControl = NSSegmentedControl(labels: ["PNG", "JPG"], trackingMode: .selectOne, target: nil, action: nil)
+    let jpgQualityLabel = NSTextField(labelWithString: "Качество JPG (10-100):")
+    let jpgQualitySlider = NSSlider(value: 80, minValue: 10, maxValue: 100, target: nil, action: nil)
+    let jpgQualityValueLabel = NSTextField(labelWithString: "80")
+
     // MARK: - UI Elements (SFTP Settings)
     let sftpHostTextField = NSTextField()
     let sftpPortTextField = NSTextField()
@@ -31,10 +38,6 @@ class SettingsViewController: NSViewController {
     // MARK: - Common UI Elements
     let tabView = NSTabView()
     // Кнопка "Сохранить" удалена, сохранение будет происходить при закрытии окна
-
-    override func loadView() {
-        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 480, height: 400)) // Увеличиваем размер окна
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +96,11 @@ class SettingsViewController: NSViewController {
         view.addSubview(launchAtSystemStartupCheckbox)
         view.addSubview(renameFileOnUploadCheckbox)
         view.addSubview(showDockIconCheckbox)
+        view.addSubview(clipboardFormatLabel)
+        view.addSubview(clipboardFormatControl)
+        view.addSubview(jpgQualityLabel)
+        view.addSubview(jpgQualitySlider)
+        view.addSubview(jpgQualityValueLabel)
 
         folderPathTextField.translatesAutoresizingMaskIntoConstraints = false
         selectFolderButton.translatesAutoresizingMaskIntoConstraints = false
@@ -102,6 +110,11 @@ class SettingsViewController: NSViewController {
         launchAtSystemStartupCheckbox.translatesAutoresizingMaskIntoConstraints = false
         renameFileOnUploadCheckbox.translatesAutoresizingMaskIntoConstraints = false
         showDockIconCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        clipboardFormatLabel.translatesAutoresizingMaskIntoConstraints = false
+        clipboardFormatControl.translatesAutoresizingMaskIntoConstraints = false
+        jpgQualityLabel.translatesAutoresizingMaskIntoConstraints = false
+        jpgQualitySlider.translatesAutoresizingMaskIntoConstraints = false
+        jpgQualityValueLabel.translatesAutoresizingMaskIntoConstraints = false
 
         // Text Field Settings
         folderPathTextField.placeholderString = "Путь к папке для отслеживания"
@@ -124,6 +137,15 @@ class SettingsViewController: NSViewController {
         renameFileOnUploadCheckbox.action = #selector(renameFileOnUploadChanged)
         showDockIconCheckbox.target = self
         showDockIconCheckbox.action = #selector(showDockIconChanged)
+
+        // Clipboard Format Settings
+        clipboardFormatControl.target = self
+        clipboardFormatControl.action = #selector(clipboardFormatChanged)
+        jpgQualitySlider.target = self
+        jpgQualitySlider.action = #selector(jpgQualitySliderChanged)
+        jpgQualitySlider.controlSize = .small
+        jpgQualitySlider.numberOfTickMarks = 10
+        jpgQualitySlider.allowsTickMarkValuesOnly = true
 
         NSLayoutConstraint.activate([
             folderPathTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
@@ -151,15 +173,34 @@ class SettingsViewController: NSViewController {
             renameFileOnUploadCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 
             showDockIconCheckbox.topAnchor.constraint(equalTo: renameFileOnUploadCheckbox.bottomAnchor, constant: 10),
-            showDockIconCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+            showDockIconCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            // Clipboard Format
+            clipboardFormatLabel.topAnchor.constraint(equalTo: showDockIconCheckbox.bottomAnchor, constant: 20),
+            clipboardFormatLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            clipboardFormatControl.centerYAnchor.constraint(equalTo: clipboardFormatLabel.centerYAnchor),
+            clipboardFormatControl.leadingAnchor.constraint(equalTo: clipboardFormatLabel.trailingAnchor, constant: 10),
+
+            // JPG Quality
+            jpgQualityLabel.topAnchor.constraint(equalTo: clipboardFormatLabel.bottomAnchor, constant: 10),
+            jpgQualityLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            jpgQualitySlider.centerYAnchor.constraint(equalTo: jpgQualityLabel.centerYAnchor),
+            jpgQualitySlider.leadingAnchor.constraint(equalTo: jpgQualityLabel.trailingAnchor, constant: 10),
+            jpgQualitySlider.widthAnchor.constraint(equalToConstant: 150),
+            jpgQualityValueLabel.centerYAnchor.constraint(equalTo: jpgQualityLabel.centerYAnchor),
+            jpgQualityValueLabel.leadingAnchor.constraint(equalTo: jpgQualitySlider.trailingAnchor, constant: 10)
         ])
+    }
+
+    override func loadView() {
+        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 480, height: 500)) // Увеличиваем размер окна
     }
 
     private func setupSFTPTab(in view: NSView) {
         let stackView = NSStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.orientation = .vertical
-        stackView.alignment = .centerX // Центрируем элементы по горизонтали
+        stackView.alignment = .leading // Изменено на .leading для выравнивания по левому краю
         stackView.spacing = 10
         view.addSubview(stackView)
 
@@ -218,7 +259,15 @@ class SettingsViewController: NSViewController {
         launchAtSystemStartupCheckbox.state = defaults.bool(forKey: "launchAtSystemStartup") ? .on : .off // Читаем из UserDefaults
         renameFileOnUploadCheckbox.state = defaults.bool(forKey: "renameFileOnUpload") ? .on : .off
         showDockIconCheckbox.state = defaults.bool(forKey: "showDockIcon") ? .on : .off
-        
+
+        // Clipboard Upload Settings
+        let savedFormat = defaults.string(forKey: "clipboardUploadFormat") ?? "png"
+        clipboardFormatControl.selectedSegment = (savedFormat == "png") ? 0 : 1
+        let savedQuality = defaults.integer(forKey: "clipboardJpgQuality")
+        jpgQualitySlider.doubleValue = (savedQuality == 0) ? 80 : Double(savedQuality) // Default to 80 if not set
+        jpgQualityValueLabel.stringValue = "\(Int(jpgQualitySlider.doubleValue))"
+        updateJpgQualityVisibility() // Обновляем видимость элементов качества JPG
+
         // SFTP Settings
         sftpHostTextField.stringValue = defaults.string(forKey: "sftpHost") ?? ""
         sftpPortTextField.stringValue = defaults.string(forKey: "sftpPort") ?? "22"
@@ -243,6 +292,11 @@ class SettingsViewController: NSViewController {
         defaults.set(launchAtSystemStartupCheckbox.state == .on, forKey: "launchAtSystemStartup") // Сохраняем состояние чекбокса автозапуска
         defaults.set(renameFileOnUploadCheckbox.state == .on, forKey: "renameFileOnUpload")
         defaults.set(showDockIconCheckbox.state == .on, forKey: "showDockIcon")
+
+        // Clipboard Upload Settings
+        let selectedFormat = (clipboardFormatControl.selectedSegment == 0) ? "png" : "jpg"
+        defaults.set(selectedFormat, forKey: "clipboardUploadFormat")
+        defaults.set(Int(jpgQualitySlider.doubleValue), forKey: "clipboardJpgQuality")
         
         // SFTP Settings
         defaults.set(sftpHostTextField.stringValue, forKey: "sftpHost")
@@ -317,6 +371,26 @@ class SettingsViewController: NSViewController {
                 self.view.window?.makeKeyAndOrderFront(nil)
             }
         }
+    }
+
+    @objc private func clipboardFormatChanged() {
+        saveSettings()
+        updateJpgQualityVisibility()
+        print("Формат загрузки из буфера: \(clipboardFormatControl.selectedSegment == 0 ? "PNG" : "JPG")")
+    }
+
+    @objc private func jpgQualitySliderChanged() {
+        let quality = Int(jpgQualitySlider.doubleValue)
+        jpgQualityValueLabel.stringValue = "\(quality)"
+        saveSettings()
+        print("Качество JPG: \(quality)")
+    }
+
+    private func updateJpgQualityVisibility() {
+        let isJPGSelected = clipboardFormatControl.selectedSegment == 1 // 0 for PNG, 1 for JPG
+        jpgQualityLabel.isHidden = !isJPGSelected
+        jpgQualitySlider.isHidden = !isJPGSelected
+        jpgQualityValueLabel.isHidden = !isJPGSelected
     }
 
     @objc private func testConnectionClicked() {
