@@ -412,7 +412,7 @@ class SettingsViewController: NSViewController {
         }
 
         // Находим компоненты пути
-        let components = path.split(separator: "/", omittingEmptySubstrings: true)
+        let components = path.components(separatedBy: "/").filter { !$0.isEmpty }
         guard components.count > 1 else {
             return path
         }
@@ -459,35 +459,35 @@ class SettingsViewController: NSViewController {
 
     func saveSettings() {
         let defaults = UserDefaults.standard
-        
+
         // General Settings
-        defaults.set(folderPathTextField.stringValue, forKey: "folderPath")
-        defaults.set(showNotificationsCheckbox.state == .on, forKey: "showNotifications")
-        defaults.set(enableSoundCheckbox.state == .on, forKey: "enableSound")
-        defaults.set(startMonitoringOnLaunchCheckbox.state == .on, forKey: "startMonitoringOnLaunch")
-        defaults.set(launchAtSystemStartupCheckbox.state == .on, forKey: "launchAtSystemStartup") // Сохраняем состояние чекбокса автозапуска
-        defaults.set(renameFileOnUploadCheckbox.state == .on, forKey: "renameFileOnUpload")
-        defaults.set(showDockIconCheckbox.state == .on, forKey: "showDockIcon")
+        defaults.set(self.folderPathTextField.stringValue, forKey: "folderPath")
+        defaults.set(self.showNotificationsCheckbox.state == .on, forKey: "showNotifications")
+        defaults.set(self.enableSoundCheckbox.state == .on, forKey: "enableSound")
+        defaults.set(self.startMonitoringOnLaunchCheckbox.state == .on, forKey: "startMonitoringOnLaunch")
+        defaults.set(self.launchAtSystemStartupCheckbox.state == .on, forKey: "launchAtSystemStartup") // Сохраняем состояние чекбокса автозапуска
+        defaults.set(self.renameFileOnUploadCheckbox.state == .on, forKey: "renameFileOnUpload")
+        defaults.set(self.showDockIconCheckbox.state == .on, forKey: "showDockIcon")
 
         // Clipboard Upload Settings
-        let selectedFormat = (clipboardFormatControl.selectedSegment == 0) ? "png" : "jpg"
+        let selectedFormat = (self.clipboardFormatControl.selectedSegment == 0) ? "png" : "jpg"
         defaults.set(selectedFormat, forKey: "clipboardUploadFormat")
-        defaults.set(Int(jpgQualitySlider.doubleValue), forKey: "clipboardJpgQuality")
-        
+        defaults.set(Int(self.jpgQualitySlider.doubleValue), forKey: "clipboardJpgQuality")
+
         // SFTP Settings
-        defaults.set(sftpHostTextField.stringValue, forKey: "sftpHost")
-        defaults.set(sftpPortTextField.stringValue, forKey: "sftpPort")
-        defaults.set(sftpUserTextField.stringValue, forKey: "sftpUser")
-        defaults.set(sftpPasswordSecureTextField.stringValue, forKey: "sftpPassword")
-        defaults.set(sftpFolderTextField.stringValue, forKey: "sftpFolder")
-        defaults.set(sftpBaseUrlTextField.stringValue, forKey: "sftpBaseUrl")
-        
+        defaults.set(self.sftpHostTextField.stringValue, forKey: "sftpHost")
+        defaults.set(self.sftpPortTextField.stringValue, forKey: "sftpPort")
+        defaults.set(self.sftpUserTextField.stringValue, forKey: "sftpUser")
+        defaults.set(self.sftpPasswordSecureTextField.stringValue, forKey: "sftpPassword")
+        defaults.set(self.sftpFolderTextField.stringValue, forKey: "sftpFolder")
+        defaults.set(self.sftpBaseUrlTextField.stringValue, forKey: "sftpBaseUrl")
+
         // Update LaunchAtLoginManager
-        LaunchAtLoginManager.shared.setLaunchAtLogin(enabled: launchAtSystemStartupCheckbox.state == .on)
-        
+        LaunchAtLoginManager.shared.setLaunchAtLogin(enabled: self.launchAtSystemStartupCheckbox.state == .on)
+
         // Update FolderMonitor
-        FolderMonitor.shared.folderPath = folderPathTextField.stringValue
-        
+        FolderMonitor.shared.folderPath = self.folderPathTextField.stringValue
+
         print("Настройки сохранены.")
     }
 
