@@ -99,7 +99,15 @@ class SettingsViewController: NSViewController {
     }
 
     private func setupGeneralTab(in view: NSView) {
-        // Folder Selection Section
+        // Main container
+        let mainStack = NSStackView()
+        mainStack.orientation = .vertical
+        mainStack.alignment = .leading
+        mainStack.spacing = 20
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mainStack)
+
+        // Folder Selection Section - IN THE VERY TOP
         let folderTitle = NSTextField(labelWithString: "Папка для отслеживания")
         folderTitle.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
         folderTitle.textColor = NSColor.labelColor
@@ -117,27 +125,11 @@ class SettingsViewController: NSViewController {
         folderSection.addArrangedSubview(folderPathTextField)
         folderSection.addArrangedSubview(selectFolderButton)
 
-        // Add title and folder section to main container
-        let folderContainer = NSStackView()
-        folderContainer.orientation = .vertical
-        folderContainer.alignment = .leading
-        folderContainer.spacing = 5
-        folderContainer.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(folderContainer)
-
-        folderContainer.addArrangedSubview(folderTitle)
-        folderContainer.addArrangedSubview(folderSection)
-
         // Behavior Section
-        let behaviorSection = NSStackView()
-        behaviorSection.orientation = .vertical
-        behaviorSection.alignment = .leading
-        behaviorSection.spacing = 10
-        behaviorSection.translatesAutoresizingMaskIntoConstraints = false
-
         let behaviorTitle = NSTextField(labelWithString: "Поведение")
         behaviorTitle.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
         behaviorTitle.textColor = NSColor.labelColor
+        behaviorTitle.translatesAutoresizingMaskIntoConstraints = false
 
         let checkboxesStack = NSStackView()
         checkboxesStack.orientation = .vertical
@@ -159,19 +151,11 @@ class SettingsViewController: NSViewController {
         checkboxesStack.addArrangedSubview(renameFileOnUploadCheckbox)
         checkboxesStack.addArrangedSubview(showDockIconCheckbox)
 
-        behaviorSection.addArrangedSubview(behaviorTitle)
-        behaviorSection.addArrangedSubview(checkboxesStack)
-
-        // Main container
-        let mainStack = NSStackView()
-        mainStack.orientation = .vertical
-        mainStack.alignment = .leading
-        mainStack.spacing = 20
-        mainStack.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(mainStack)
-
+        // Add all elements to main stack
+        mainStack.addArrangedSubview(folderTitle)
         mainStack.addArrangedSubview(folderSection)
-        mainStack.addArrangedSubview(behaviorSection)
+        mainStack.addArrangedSubview(behaviorTitle)
+        mainStack.addArrangedSubview(checkboxesStack)
 
         // Setup targets and actions
         selectFolderButton.target = self
