@@ -197,6 +197,11 @@ class FolderMonitor: NSObject {
 
     // Метод для загрузки одного файла (используется для Drag & Drop и мониторинга папки)
     func uploadSingleFile(atPath localFilePath: String, isMonitored: Bool, deleteAfterUpload: Bool = false) {
+        // Проверяем размер файла перед загрузкой
+        if !checkFileSizeLimit(filePath: localFilePath, isMonitored: isMonitored) {
+            return // Если файл превышает лимит, прекращаем обработку
+        }
+
         let defaults = UserDefaults.standard
         let renameFileOnUpload = defaults.bool(forKey: "renameFileOnUpload")
         let sftpHost = defaults.string(forKey: "sftpHost") ?? ""
@@ -299,6 +304,62 @@ class FolderMonitor: NSObject {
         return fileExtension.isEmpty ? randomName : "\(randomName).\(fileExtension)"
     }
 
+    // MARK: - File Size Validation
+    private func checkFileSizeLimit(filePath: String, isMonitored: Bool) -> Bool {
+        let defaults = UserDefaults.standard
+        let isMaxFileSizeLimitEnabled = defaults.bool(forKey: "isMaxFileSizeLimitEnabled")
+        let maxFileSizeLimit = defaults.integer(forKey: "maxFileSizeLimit")
+
+        // Если ограничение размера файла не включено или лимит равен 0, всегда возвращаем true
+        guard isMaxFileSizeLimitEnabled && maxFileSizeLimit > 0 else {
+            return true
+        }
+
+        let maxFileSizeBytes = maxFileSizeLimit * 1024 * 1024 // Конвертируем Мб в байты
+
+        do {
+            let fileManager = FileManager.default
+            let attributes = try fileManager.attributesOfItem(atPath: filePath)
+            let fileSize = attributes[.size] as? Int64 ?? 0
+
+            if fileSize > maxFileSizeBytes {
+                let fileName = URL(fileURLWithPath: filePath).lastPathComponent
+                let fileSizeMB = Double(fileSize) / (1024 * 1024)
+
+                print("Файл \(fileName) (\(String(format: "%.1f", fileSizeMB)) Мб) превышает лимит в \(maxFileSizeLimit) Мб")
+
+                // Отправляем уведомление об ошибке
+                let errorMsg = "Файл (\(String(format: "%.1f", fileSizeMB)) Мб) превышает установленный лимит в \(maxFileSizeLimit) Мб."
+                NotificationCenter.default.post(name: .uploadFailure, object: nil, userInfo: ["fileName": fileName, "error": errorMsg])
+
+                // Перемещаем файл в папку Error, только если он из отслеживаемой папки
+                if isMonitored {
+                    let fileManager = FileManager.default
+                    let originalURL = URL(fileURLWithPath: filePath)
+                    let destinationFolderURL = URL(fileURLWithPath: folderPath).appendingPathComponent("Error")
+                    let destinationURL = destinationFolderURL.appendingPathComponent(originalURL.lastPathComponent)
+
+                    do {
+                        if fileManager.fileExists(atPath: destinationURL.path) {
+                            try fileManager.removeItem(at: destinationURL)
+                        }
+                        try fileManager.moveItem(at: originalURL, to: destinationURL)
+                        print("Файл \(fileName) перемещен в папку Error из-за превышения лимита размера.")
+                    } catch {
+                        print("Ошибка при перемещении файла \(fileName) в папку Error: \(error.localizedDescription)")
+                    }
+                }
+
+                return false
+            }
+
+            return true
+        } catch {
+            print("Ошибка при получении размера файла \(filePath): \(error.localizedDescription)")
+            return false
+        }
+    }
+
     // MARK: - SFTP Connection Test
     func testSFTPConnection(host: String, port: Int, user: String, password: String, completion: @escaping (Result<String, Error>) -> Void) {
         monitorQueue.async {
@@ -339,7 +400,7 @@ private extension FolderMonitor {
         DispatchQueue.main.async {
             let fileURL = URL(fileURLWithPath: fileName)
             if isSuccess {
-                if isMonitored {
+                if isMonitored { // Перемещаем только если файл из отслеживаемой папки
                     self.moveFile(localFilePath: fileName, toFolder: "Uploaded")
                 } else if deleteAfterUpload {
                     // Удаляем временный файл после успешной загрузки
@@ -356,7 +417,7 @@ private extension FolderMonitor {
                     self.batchUploadSuccessCount += 1
                 }
             } else {
-                if isMonitored {
+                if isMonitored { // Перемещаем только если файл из отслеживаемой папки
                     self.moveFile(localFilePath: fileName, toFolder: "Error")
                 } else if deleteAfterUpload {
                     // Удаляем временный файл после неудачной загрузки

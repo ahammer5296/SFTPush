@@ -26,6 +26,9 @@ class SettingsViewController: NSViewController {
     let launchAtSystemStartupCheckbox = NSButton(checkboxWithTitle: "Автозапуск приложения при старте системы", target: nil, action: nil)
     let renameFileOnUploadCheckbox = NSButton(checkboxWithTitle: "Изменять имя файла при загрузке", target: nil, action: nil)
     let showDockIconCheckbox = NSButton(checkboxWithTitle: "Показывать иконку приложения в доке", target: nil, action: nil)
+    let limitFileSizeCheckbox = NSButton(checkboxWithTitle: "Ограничить максимальный размер файла", target: nil, action: nil)
+    let maxFileSizeTextField = NSTextField()
+    let maxFileSizeLabel = NSTextField(labelWithString: "Mb")
 
     // MARK: - UI Elements (Clipboard Upload Settings)
     let clipboardFormatLabel = NSTextField(labelWithString: "Формат загрузки из буфера:")
@@ -37,6 +40,9 @@ class SettingsViewController: NSViewController {
     // MARK: - UI Elements (Hotkey Settings)
     var hotkeyRecorderView: HotkeyRecorderView!
     let clearHotkeyButton = NSButton(title: "Очистить", target: nil, action: nil)
+    let copyBeforeUploadCheckbox = NSButton(checkboxWithTitle: "Копировать в буфер перед загрузкой", target: nil, action: nil)
+    let copyOnlyFromMonosnapCheckbox = NSButton(checkboxWithTitle: "Копировать в буфер перед загрузкой только из Monosnap", target: nil, action: nil)
+    let uploadCopiedFilesCheckbox = NSButton(checkboxWithTitle: "Загружать скопированные файлы", target: nil, action: nil)
 
     // MARK: - UI Elements (SFTP Settings)
     let sftpHostTextField = NSTextField()
@@ -117,6 +123,9 @@ class SettingsViewController: NSViewController {
         view.addSubview(launchAtSystemStartupCheckbox)
         view.addSubview(renameFileOnUploadCheckbox)
         view.addSubview(showDockIconCheckbox)
+        view.addSubview(limitFileSizeCheckbox)
+        view.addSubview(maxFileSizeTextField)
+        view.addSubview(maxFileSizeLabel)
 
         folderSectionHeader.translatesAutoresizingMaskIntoConstraints = false
         folderPathTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -128,6 +137,9 @@ class SettingsViewController: NSViewController {
         launchAtSystemStartupCheckbox.translatesAutoresizingMaskIntoConstraints = false
         renameFileOnUploadCheckbox.translatesAutoresizingMaskIntoConstraints = false
         showDockIconCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        limitFileSizeCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        maxFileSizeTextField.translatesAutoresizingMaskIntoConstraints = false
+        maxFileSizeLabel.translatesAutoresizingMaskIntoConstraints = false
 
         // Text Field Settings
         folderPathTextField.placeholderString = "Путь к папке для отслеживания"
@@ -157,6 +169,14 @@ class SettingsViewController: NSViewController {
         renameFileOnUploadCheckbox.action = #selector(renameFileOnUploadChanged)
         showDockIconCheckbox.target = self
         showDockIconCheckbox.action = #selector(showDockIconChanged)
+        limitFileSizeCheckbox.target = self
+        limitFileSizeCheckbox.action = #selector(limitFileSizeChanged) // Добавляем обработчик для чекбокса лимита
+        copyBeforeUploadCheckbox.target = self
+        copyBeforeUploadCheckbox.action = #selector(copyBeforeUploadChanged)
+        copyOnlyFromMonosnapCheckbox.target = self
+        copyOnlyFromMonosnapCheckbox.action = #selector(copyOnlyFromMonosnapChanged)
+        uploadCopiedFilesCheckbox.target = self
+        uploadCopiedFilesCheckbox.action = #selector(uploadCopiedFilesChanged)
 
         // Clipboard Format Settings
         clipboardFormatControl.target = self
@@ -208,6 +228,18 @@ class SettingsViewController: NSViewController {
 
             showDockIconCheckbox.topAnchor.constraint(equalTo: renameFileOnUploadCheckbox.bottomAnchor, constant: 10),
             showDockIconCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            // File Size Limit Section
+            limitFileSizeCheckbox.topAnchor.constraint(equalTo: showDockIconCheckbox.bottomAnchor, constant: 15),
+            limitFileSizeCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            maxFileSizeTextField.centerYAnchor.constraint(equalTo: limitFileSizeCheckbox.centerYAnchor),
+            maxFileSizeTextField.leadingAnchor.constraint(equalTo: limitFileSizeCheckbox.trailingAnchor, constant: 10),
+            maxFileSizeTextField.widthAnchor.constraint(equalToConstant: 80),
+            maxFileSizeTextField.heightAnchor.constraint(equalToConstant: 20),
+
+            maxFileSizeLabel.centerYAnchor.constraint(equalTo: limitFileSizeCheckbox.centerYAnchor),
+            maxFileSizeLabel.leadingAnchor.constraint(equalTo: maxFileSizeTextField.trailingAnchor, constant: 5),
         ])
     }
 
@@ -323,6 +355,9 @@ class SettingsViewController: NSViewController {
         view.addSubview(jpgQualityValueLabel)
         view.addSubview(hotkeySectionHeader)
         view.addSubview(hotkeyDescriptionLabel)
+        view.addSubview(copyBeforeUploadCheckbox)
+        view.addSubview(copyOnlyFromMonosnapCheckbox)
+        view.addSubview(uploadCopiedFilesCheckbox)
 
         // Hotkey Recorder
         hotkeyRecorderView = HotkeyRecorderView()
@@ -340,6 +375,9 @@ class SettingsViewController: NSViewController {
         jpgQualityValueLabel.translatesAutoresizingMaskIntoConstraints = false
         hotkeySectionHeader.translatesAutoresizingMaskIntoConstraints = false
         hotkeyDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        copyBeforeUploadCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        copyOnlyFromMonosnapCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        uploadCopiedFilesCheckbox.translatesAutoresizingMaskIntoConstraints = false
 
         // Section Headers Font Settings - Bold
         let boldFont = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
@@ -387,7 +425,7 @@ class SettingsViewController: NSViewController {
             hotkeyDescriptionLabel.topAnchor.constraint(equalTo: hotkeySectionHeader.bottomAnchor, constant: 8),
             hotkeyDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 
-            // Hotkey Recorder Constraints
+            // Hotkey Recorder (теперь выше чекбоксов)
             hotkeyRecorderView.topAnchor.constraint(equalTo: hotkeyDescriptionLabel.bottomAnchor, constant: 8),
             hotkeyRecorderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             hotkeyRecorderView.widthAnchor.constraint(equalToConstant: 150),
@@ -395,6 +433,18 @@ class SettingsViewController: NSViewController {
 
             clearHotkeyButton.centerYAnchor.constraint(equalTo: hotkeyRecorderView.centerYAnchor),
             clearHotkeyButton.leadingAnchor.constraint(equalTo: hotkeyRecorderView.trailingAnchor, constant: 10),
+
+            // Copy Before Upload Checkbox
+            copyBeforeUploadCheckbox.topAnchor.constraint(equalTo: hotkeyRecorderView.bottomAnchor, constant: 15),
+            copyBeforeUploadCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            // Copy Only From Monosnap Checkbox (с отступом для визуальной иерархии)
+            copyOnlyFromMonosnapCheckbox.topAnchor.constraint(equalTo: copyBeforeUploadCheckbox.bottomAnchor, constant: 8),
+            copyOnlyFromMonosnapCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+
+            // Upload Copied Files Checkbox
+            uploadCopiedFilesCheckbox.topAnchor.constraint(equalTo: copyOnlyFromMonosnapCheckbox.bottomAnchor, constant: 8),
+            uploadCopiedFilesCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
         ])
     }
 
@@ -410,6 +460,7 @@ class SettingsViewController: NSViewController {
         launchAtSystemStartupCheckbox.state = defaults.bool(forKey: "launchAtSystemStartup") ? .on : .off // Читаем из UserDefaults
         renameFileOnUploadCheckbox.state = defaults.bool(forKey: "renameFileOnUpload") ? .on : .off
         showDockIconCheckbox.state = defaults.bool(forKey: "showDockIcon") ? .on : .off
+        limitFileSizeCheckbox.state = defaults.bool(forKey: "isMaxFileSizeLimitEnabled") ? .on : .off
 
         // Clipboard Upload Settings
         let savedFormat = defaults.string(forKey: "clipboardUploadFormat") ?? "png"
@@ -438,6 +489,20 @@ class SettingsViewController: NSViewController {
         } else {
             hotkeyRecorderView.currentKeyCombo = nil
         }
+
+        // Load Copy Before Upload Setting
+        copyBeforeUploadCheckbox.state = defaults.bool(forKey: "copyBeforeUpload") ? .on : .off
+
+        // Load Copy Only From Monosnap Setting
+        copyOnlyFromMonosnapCheckbox.state = defaults.bool(forKey: "copyOnlyFromMonosnap") ? .on : .off
+
+        // Load Upload Copied Files Setting
+        uploadCopiedFilesCheckbox.state = defaults.bool(forKey: "uploadCopiedFiles") ? .on : .off
+
+        // Load Max File Size Limit Setting
+        let savedMaxFileSize = defaults.integer(forKey: "maxFileSizeLimit")
+        maxFileSizeTextField.stringValue = savedMaxFileSize == 0 ? "200" : "\(savedMaxFileSize)"
+        updateFileSizeLimitUIState() // Обновляем состояние UI для лимита размера файла
     }
 
     func saveSettings() {
@@ -451,6 +516,7 @@ class SettingsViewController: NSViewController {
         defaults.set(launchAtSystemStartupCheckbox.state == .on, forKey: "launchAtSystemStartup") // Сохраняем состояние чекбокса автозапуска
         defaults.set(renameFileOnUploadCheckbox.state == .on, forKey: "renameFileOnUpload")
         defaults.set(showDockIconCheckbox.state == .on, forKey: "showDockIcon")
+        defaults.set(limitFileSizeCheckbox.state == .on, forKey: "isMaxFileSizeLimitEnabled") // Сохраняем состояние чекбокса лимита размера файла
 
         // Clipboard Upload Settings
         let selectedFormat = (clipboardFormatControl.selectedSegment == 0) ? "png" : "jpg"
@@ -464,6 +530,15 @@ class SettingsViewController: NSViewController {
         defaults.set(sftpPasswordSecureTextField.stringValue, forKey: "sftpPassword")
         defaults.set(sftpFolderTextField.stringValue, forKey: "sftpFolder")
         defaults.set(sftpBaseUrlTextField.stringValue, forKey: "sftpBaseUrl")
+
+        // Hotkey Settings
+        defaults.set(copyBeforeUploadCheckbox.state == .on, forKey: "copyBeforeUpload")
+        defaults.set(copyOnlyFromMonosnapCheckbox.state == .on, forKey: "copyOnlyFromMonosnap")
+        defaults.set(uploadCopiedFilesCheckbox.state == .on, forKey: "uploadCopiedFiles")
+
+        // File Size Limit Settings
+        let maxFileSizeValue = Int(maxFileSizeTextField.stringValue) ?? 200
+        defaults.set(maxFileSizeValue, forKey: "maxFileSizeLimit")
         
         // Update LaunchAtLoginManager
         LaunchAtLoginManager.shared.setLaunchAtLogin(enabled: launchAtSystemStartupCheckbox.state == .on)
@@ -533,6 +608,28 @@ class SettingsViewController: NSViewController {
         }
     }
 
+    @objc private func limitFileSizeChanged() {
+        saveSettings()
+        updateFileSizeLimitUIState()
+        print("Ограничить максимальный размер файла: \(limitFileSizeCheckbox.state == .on)")
+    }
+
+    @objc private func copyBeforeUploadChanged() {
+        saveSettings()
+        updateMonosnapCheckboxState()
+        print("Копировать перед загрузкой: \(copyBeforeUploadCheckbox.state == .on)")
+    }
+
+    @objc private func copyOnlyFromMonosnapChanged() {
+        saveSettings()
+        print("Копировать в буфер только из Monosnap: \(copyOnlyFromMonosnapCheckbox.state == .on)")
+    }
+
+    @objc private func uploadCopiedFilesChanged() {
+        saveSettings()
+        print("Загружать скопированные файлы: \(uploadCopiedFilesCheckbox.state == .on)")
+    }
+
     @objc private func clipboardFormatChanged() {
         saveSettings()
         updateJpgQualityVisibility()
@@ -551,6 +648,27 @@ class SettingsViewController: NSViewController {
         jpgQualityLabel.isHidden = !isJPGSelected
         jpgQualitySlider.isHidden = !isJPGSelected
         jpgQualityValueLabel.isHidden = !isJPGSelected
+    }
+
+    private func updateMonosnapCheckboxState() {
+        let isCopyBeforeUploadEnabled = copyBeforeUploadCheckbox.state == .on
+
+        // Если главный чекбокс выключен, то дочерний тоже выключаем и делаем неактивным
+        if !isCopyBeforeUploadEnabled {
+            copyOnlyFromMonosnapCheckbox.state = .off
+            copyOnlyFromMonosnapCheckbox.isEnabled = false
+        } else {
+            // Если главный чекбокс включен, то дочерний становится активным
+            copyOnlyFromMonosnapCheckbox.isEnabled = true
+        }
+
+        print("Состояние чекбоксов обновлено: главный=\(isCopyBeforeUploadEnabled), дочерний активен=\(copyOnlyFromMonosnapCheckbox.isEnabled)")
+    }
+
+    private func updateFileSizeLimitUIState() {
+        let isLimitEnabled = limitFileSizeCheckbox.state == .on
+        maxFileSizeTextField.isEnabled = isLimitEnabled
+        maxFileSizeLabel.isEnabled = isLimitEnabled
     }
 
     @objc private func testConnectionClicked() {
@@ -618,7 +736,7 @@ extension SettingsViewController {
     }
 }
 
-// MARK: - NSTextFieldDelegate for Port field validation
+    // MARK: - NSTextFieldDelegate for Port field validation
 extension SettingsViewController: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
         if let textField = obj.object as? NSTextField, textField == sftpPortTextField {
@@ -626,6 +744,21 @@ extension SettingsViewController: NSTextFieldDelegate {
             let filteredText = textField.stringValue.filter { $0.isNumber }
             if filteredText != textField.stringValue {
                 textField.stringValue = filteredText
+            }
+        }
+
+        if let textField = obj.object as? NSTextField, textField == maxFileSizeTextField {
+            // Удаляем все символы, кроме цифр
+            let filteredText = textField.stringValue.filter { $0.isNumber }
+            if filteredText != textField.stringValue {
+                textField.stringValue = filteredText
+            }
+
+            // Проверяем значение и корректируем, если оно выходит за пределы
+            if let value = Int(filteredText), value > 1048576 {
+                textField.stringValue = "1048576" // Максимум 1 Тб
+            } else if let value = Int(filteredText), value < 0 {
+                textField.stringValue = "200" // Минимум 200 Мб
             }
         }
     }

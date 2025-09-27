@@ -87,14 +87,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
 
         // Подписываемся на уведомления от FolderMonitor
-        NotificationCenter.default.addObserver(self, selector: #selector(handleFolderMonitoringStatusChanged), name: .folderMonitoringStatusChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadSuccess), name: .uploadSuccess, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadFailure), name: .uploadFailure, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestFolderPath), name: .requestFolderPath, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadStarted), name: .uploadStarted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadFinished), name: .uploadFinished, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleBatchUploadStarted), name: .batchUploadStarted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleBatchUploadFinished), name: .batchUploadFinished, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleFolderMonitoringStatusChanged), name: Notification.Name.folderMonitoringStatusChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadSuccess), name: Notification.Name.uploadSuccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadFailure), name: Notification.Name.uploadFailure, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRequestFolderPath), name: Notification.Name.requestFolderPath, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadStarted), name: Notification.Name.uploadStarted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUploadFinished), name: Notification.Name.uploadFinished, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBatchUploadStarted), name: Notification.Name.batchUploadStarted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBatchUploadFinished), name: Notification.Name.batchUploadFinished, object: nil)
 
 
         if defaults.object(forKey: "showNotifications") == nil {
@@ -119,6 +119,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             if LaunchAtLoginManager.shared.isLaunchAtLoginEnabled() != savedState {
                 LaunchAtLoginManager.shared.setLaunchAtLogin(enabled: savedState)
             }
+        }
+        if defaults.object(forKey: "uploadCopiedFiles") == nil {
+            defaults.set(true, forKey: "uploadCopiedFiles") // По умолчанию: разрешить загрузку скопированных файлов
+        }
+        if defaults.object(forKey: "maxFileSizeLimit") == nil {
+            defaults.set(200, forKey: "maxFileSizeLimit") // По умолчанию: 200 Мб
+        }
+        if defaults.object(forKey: "isMaxFileSizeLimitEnabled") == nil {
+            defaults.set(false, forKey: "isMaxFileSizeLimitEnabled") // По умолчанию: ограничение размера файла выключено
         }
 
         // Инициализируем и проверяем папки
@@ -385,7 +394,50 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     // MARK: - Hotkey Handler
     @objc func handleHotkeyTriggered() {
         print("Hotkey triggered!")
-        uploadFromClipboard()
+
+        let defaults = UserDefaults.standard
+        let copyBeforeUpload = defaults.bool(forKey: "copyBeforeUpload")
+        let copyOnlyFromMonosnap = defaults.bool(forKey: "copyOnlyFromMonosnap")
+
+        if copyBeforeUpload {
+            // Проверяем права на управление другими приложениями
+            if !AccessibilityManager.shared.hasAccessibilityPermissions() {
+                print("Нет прав на управление другими приложениями")
+                AccessibilityManager.shared.showAccessibilityPermissionAlert()
+                return
+            }
+
+            if copyOnlyFromMonosnap {
+                // Проверяем, является ли активное приложение Monosnap
+                if AccessibilityManager.shared.isActiveApplicationMonosnap() {
+                    print("Активное приложение - Monosnap, симулируем копирование")
+                    // Симулируем копирование
+                    AccessibilityManager.shared.simulateCopy()
+
+                    // Даем время на копирование (0.2 секунды)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.uploadFromClipboard()
+                    }
+                } else {
+                    print("Активное приложение не Monosnap, загружаем из буфера без копирования")
+                    // Просто загружаем из буфера без симуляции Cmd+C
+                    uploadFromClipboard()
+                }
+            } else {
+                // Старое поведение: симулируем копирование для любого приложения
+                print("Копировать перед загрузкой включено, симулируем копирование")
+                AccessibilityManager.shared.simulateCopy()
+
+                // Даем время на копирование (0.2 секунды)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    self.uploadFromClipboard()
+                }
+            }
+        } else {
+            // Обычная загрузка из буфера
+            print("Копировать перед загрузкой выключено, загружаем из буфера")
+            uploadFromClipboard()
+        }
     }
     
     func reRegisterHotkey() {
@@ -402,8 +454,45 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     @objc func uploadFromClipboard() {
         let pasteboard = NSPasteboard.general
+        let defaults = UserDefaults.standard
+        let uploadCopiedFiles = defaults.bool(forKey: "uploadCopiedFiles")
+        let maxFileSizeLimit = defaults.integer(forKey: "maxFileSizeLimit")
+        let maxFileSizeBytes = maxFileSizeLimit * 1024 * 1024 // Конвертируем Мб в байты
+
+        // Шаг 1: Проверяем, есть ли в буфере ссылка на файл
+        if let fileURLs = pasteboard.readObjects(forClasses: [NSURL.self]) as? [URL], !fileURLs.isEmpty {
+            let fileURL = fileURLs[0]
+
+            if uploadCopiedFiles {
+                // Проверяем размер файла
+                do {
+                    let fileManager = FileManager.default
+                    let attributes = try fileManager.attributesOfItem(atPath: fileURL.path)
+                    let fileSize = attributes[.size] as? Int64 ?? 0
+
+                    if fileSize > maxFileSizeBytes {
+                        let fileSizeMB = Double(fileSize) / (1024 * 1024)
+                        sendNotification(title: "Файл слишком большой", subtitle: fileURL.lastPathComponent, body: "Файл (\(String(format: "%.1f", fileSizeMB)) Мб) превышает установленный лимит в \(maxFileSizeLimit) Мб.")
+                        return
+                    }
+
+                    // Загружаем файл по ссылке
+                    print("Найден файл в буфере обмена, загружаем: \(fileURL.lastPathComponent) (\(fileSize) bytes)")
+                    FolderMonitor.shared.startBatchUpload(urls: fileURLs, isMonitored: false)
+                } catch {
+                    sendNotification(title: "Ошибка", subtitle: nil, body: "Не удалось получить информацию о файле: \(error.localizedDescription)")
+                }
+                return
+            } else {
+                // Пользователь запретил загрузку файлов
+                sendNotification(title: "Загрузка файлов запрещена", subtitle: nil, body: "В буфере обмена найден файл, но загрузка файлов запрещена в настройках.")
+                return
+            }
+        }
+
+        // Шаг 2: Если файлов нет или они запрещены, проверяем на наличие изображения
         guard let image = pasteboard.readObjects(forClasses: [NSImage.self])?.first as? NSImage else {
-            sendNotification(title: "Ошибка", subtitle: nil, body: "В буфере обмена нет изображения.")
+            sendNotification(title: "Ошибка", subtitle: nil, body: "В буфере обмена нет изображения или файла для загрузки.")
             return
         }
 
@@ -413,7 +502,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             return
         }
 
-        let defaults = UserDefaults.standard
         let format = defaults.string(forKey: "clipboardUploadFormat") ?? "png"
         let quality = defaults.integer(forKey: "clipboardJpgQuality")
         let compressionFactor = CGFloat(quality) / 100.0
@@ -434,13 +522,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             return
         }
 
+        // Проверяем размер изображения
+        let imageSizeBytes = Int64(finalImageData.count)
+        if imageSizeBytes > maxFileSizeBytes {
+            let imageSizeMB = Double(imageSizeBytes) / (1024 * 1024)
+            sendNotification(title: "Изображение слишком большое", subtitle: nil, body: "Изображение (\(String(format: "%.1f", imageSizeMB)) Мб) превышает установленный лимит в \(maxFileSizeLimit) Мб.")
+            return
+        }
+
         let tempDirectory = FileManager.default.temporaryDirectory
         let fileName = "clipboard-\(UUID().uuidString).\(fileExtension)"
         let tempURL = tempDirectory.appendingPathComponent(fileName)
 
         do {
             try finalImageData.write(to: tempURL)
-            print("Изображение из буфера обмена сохранено во временный файл: \(tempURL.path)")
+            print("Изображение из буфера обмена сохранено во временный файл: \(tempURL.path) (\(imageSizeBytes) bytes)")
             FolderMonitor.shared.startBatchUpload(urls: [tempURL], isMonitored: false, deleteAfterUpload: true) // Передаем флаг для удаления
         } catch {
             sendNotification(title: "Ошибка", subtitle: nil, body: "Не удалось сохранить изображение во временный файл: \(error.localizedDescription)")
