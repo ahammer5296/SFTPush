@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Xcode
+build/
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcscmblueprint
+*.xcschememanagement
+
+# Swift Package Manager
+.build/
+Packages/
+
+# Frameworks
+mft.framework/
