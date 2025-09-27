@@ -12,6 +12,13 @@ class SettingsViewController: NSViewController {
     // MARK: - UI Elements (General Settings)
     let folderPathTextField = NSTextField()
     let selectFolderButton = NSButton(title: "Выбрать папку", target: nil, action: nil)
+
+    // MARK: - UI Elements (Section Headers)
+    let folderSectionHeader = NSTextField(labelWithString: "Папка для отслеживания")
+    let behaviorSectionHeader = NSTextField(labelWithString: "Поведение")
+    let imageFormatSectionHeader = NSTextField(labelWithString: "Формат изображения")
+    let hotkeySectionHeader = NSTextField(labelWithString: "Хоткеи")
+    let hotkeyDescriptionLabel = NSTextField(labelWithString: "Отправить на сервер изображение из буфера")
     let showNotificationsCheckbox = NSButton(checkboxWithTitle: "Показывать уведомления", target: nil, action: nil)
     let enableSoundCheckbox = NSButton(checkboxWithTitle: "Включить звук уведомлений", target: nil, action: nil)
     let startMonitoringOnLaunchCheckbox = NSButton(checkboxWithTitle: "Старт отслеживания папки при старте приложения", target: nil, action: nil)
@@ -75,12 +82,6 @@ class SettingsViewController: NSViewController {
         sftpTabItem.view = sftpView
         tabView.addTabViewItem(sftpTabItem)
 
-        let clipboardHotkeyTabItem = NSTabViewItem(identifier: "ClipboardHotkey")
-        clipboardHotkeyTabItem.label = "Буфер и Хоткеи"
-        let clipboardHotkeyView = NSView()
-        clipboardHotkeyTabItem.view = clipboardHotkeyView
-        tabView.addTabViewItem(clipboardHotkeyTabItem)
-
         // Constraints for TabView
         NSLayoutConstraint.activate([
             tabView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
@@ -91,7 +92,6 @@ class SettingsViewController: NSViewController {
 
         setupGeneralTab(in: generalView)
         setupSFTPTab(in: sftpView)
-        setupClipboardHotkeyTab(in: clipboardHotkeyView)
 
         // Save Button Action (удалено)
         // saveButton.target = self
@@ -99,68 +99,70 @@ class SettingsViewController: NSViewController {
     }
 
     private func setupGeneralTab(in view: NSView) {
-        // Main container
-        let mainStack = NSStackView()
-        mainStack.orientation = .vertical
-        mainStack.alignment = .leading
-        mainStack.spacing = 20
-        mainStack.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(mainStack)
+        view.addSubview(folderSectionHeader)
+        view.addSubview(folderPathTextField)
+        view.addSubview(selectFolderButton)
+        view.addSubview(behaviorSectionHeader)
+        view.addSubview(showNotificationsCheckbox)
+        view.addSubview(enableSoundCheckbox)
+        view.addSubview(startMonitoringOnLaunchCheckbox)
+        view.addSubview(launchAtSystemStartupCheckbox)
+        view.addSubview(renameFileOnUploadCheckbox)
+        view.addSubview(showDockIconCheckbox)
+        view.addSubview(imageFormatSectionHeader)
+        view.addSubview(clipboardFormatLabel)
+        view.addSubview(clipboardFormatControl)
+        view.addSubview(jpgQualityLabel)
+        view.addSubview(jpgQualitySlider)
+        view.addSubview(jpgQualityValueLabel)
+        view.addSubview(hotkeySectionHeader)
+        view.addSubview(hotkeyDescriptionLabel)
 
-        // Folder Selection Section - IN THE VERY TOP
-        let folderTitle = NSTextField(labelWithString: "Папка для отслеживания")
-        folderTitle.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
-        folderTitle.textColor = NSColor.labelColor
-        folderTitle.translatesAutoresizingMaskIntoConstraints = false
+        // Hotkey Recorder
+        hotkeyRecorderView = HotkeyRecorderView()
+        hotkeyRecorderView.translatesAutoresizingMaskIntoConstraints = false
+        hotkeyRecorderView.delegate = self
+        view.addSubview(hotkeyRecorderView) // Добавляем после инициализации
 
-        let folderSection = NSStackView()
-        folderSection.orientation = .horizontal
-        folderSection.alignment = .centerY
-        folderSection.spacing = 10
-        folderSection.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(clearHotkeyButton)
 
+        folderSectionHeader.translatesAutoresizingMaskIntoConstraints = false
         folderPathTextField.translatesAutoresizingMaskIntoConstraints = false
         selectFolderButton.translatesAutoresizingMaskIntoConstraints = false
-
-        folderSection.addArrangedSubview(folderPathTextField)
-        folderSection.addArrangedSubview(selectFolderButton)
-
-        // Behavior Section
-        let behaviorTitle = NSTextField(labelWithString: "Поведение")
-        behaviorTitle.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
-        behaviorTitle.textColor = NSColor.labelColor
-        behaviorTitle.translatesAutoresizingMaskIntoConstraints = false
-
-        let checkboxesStack = NSStackView()
-        checkboxesStack.orientation = .vertical
-        checkboxesStack.alignment = .leading
-        checkboxesStack.spacing = 10
-        checkboxesStack.translatesAutoresizingMaskIntoConstraints = false
-
+        behaviorSectionHeader.translatesAutoresizingMaskIntoConstraints = false
         showNotificationsCheckbox.translatesAutoresizingMaskIntoConstraints = false
         enableSoundCheckbox.translatesAutoresizingMaskIntoConstraints = false
         startMonitoringOnLaunchCheckbox.translatesAutoresizingMaskIntoConstraints = false
         launchAtSystemStartupCheckbox.translatesAutoresizingMaskIntoConstraints = false
         renameFileOnUploadCheckbox.translatesAutoresizingMaskIntoConstraints = false
         showDockIconCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        imageFormatSectionHeader.translatesAutoresizingMaskIntoConstraints = false
+        clipboardFormatLabel.translatesAutoresizingMaskIntoConstraints = false
+        clipboardFormatControl.translatesAutoresizingMaskIntoConstraints = false
+        jpgQualityLabel.translatesAutoresizingMaskIntoConstraints = false
+        jpgQualitySlider.translatesAutoresizingMaskIntoConstraints = false
+        jpgQualityValueLabel.translatesAutoresizingMaskIntoConstraints = false
+        hotkeySectionHeader.translatesAutoresizingMaskIntoConstraints = false
+        hotkeyDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        checkboxesStack.addArrangedSubview(showNotificationsCheckbox)
-        checkboxesStack.addArrangedSubview(enableSoundCheckbox)
-        checkboxesStack.addArrangedSubview(startMonitoringOnLaunchCheckbox)
-        checkboxesStack.addArrangedSubview(launchAtSystemStartupCheckbox)
-        checkboxesStack.addArrangedSubview(renameFileOnUploadCheckbox)
-        checkboxesStack.addArrangedSubview(showDockIconCheckbox)
+        // Text Field Settings
+        folderPathTextField.placeholderString = "Путь к папке для отслеживания"
+        folderPathTextField.isEditable = false
+        folderPathTextField.maximumNumberOfLines = 1
+        folderPathTextField.lineBreakMode = .byTruncatingMiddle
 
-        // Add all elements to main stack
-        mainStack.addArrangedSubview(folderTitle)
-        mainStack.addArrangedSubview(folderSection)
-        mainStack.addArrangedSubview(behaviorTitle)
-        mainStack.addArrangedSubview(checkboxesStack)
-
-        // Setup targets and actions
+        // Section Headers Font Settings - Bold
+        let boldFont = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
+        folderSectionHeader.font = boldFont
+        behaviorSectionHeader.font = boldFont
+        imageFormatSectionHeader.font = boldFont
+        hotkeySectionHeader.font = boldFont
+        
+        // Button Settings
         selectFolderButton.target = self
         selectFolderButton.action = #selector(selectFolderClicked)
-
+        
+        // Checkbox Settings
         showNotificationsCheckbox.target = self
         showNotificationsCheckbox.action = #selector(showNotificationsChanged)
         enableSoundCheckbox.target = self
@@ -174,25 +176,144 @@ class SettingsViewController: NSViewController {
         showDockIconCheckbox.target = self
         showDockIconCheckbox.action = #selector(showDockIconChanged)
 
-        // Text Field Settings
-        folderPathTextField.placeholderString = "Путь к папке для отслеживания"
-        folderPathTextField.isEditable = false
-        folderPathTextField.delegate = self // Устанавливаем делегат для обработки длинных путей
+        // Clipboard Format Settings
+        clipboardFormatControl.target = self
+        clipboardFormatControl.action = #selector(clipboardFormatChanged)
+        jpgQualitySlider.target = self
+        jpgQualitySlider.action = #selector(jpgQualitySliderChanged)
+        jpgQualitySlider.controlSize = .small
+        jpgQualitySlider.numberOfTickMarks = 10
+        jpgQualitySlider.allowsTickMarkValuesOnly = true
 
-        // Constraints
+        clearHotkeyButton.translatesAutoresizingMaskIntoConstraints = false
+        clearHotkeyButton.target = self
+        clearHotkeyButton.action = #selector(clearHotkeyClicked)
+
         NSLayoutConstraint.activate([
-            mainStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            // Folder Section Header
+            folderSectionHeader.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            folderSectionHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 
-            folderPathTextField.widthAnchor.constraint(equalToConstant: 300),
+            // Folder Path and Button
+            folderPathTextField.topAnchor.constraint(equalTo: folderSectionHeader.bottomAnchor, constant: 10),
+            folderPathTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            folderPathTextField.trailingAnchor.constraint(equalTo: selectFolderButton.leadingAnchor, constant: -10),
             folderPathTextField.heightAnchor.constraint(equalToConstant: 24),
-            selectFolderButton.widthAnchor.constraint(equalToConstant: 120)
+
+            selectFolderButton.centerYAnchor.constraint(equalTo: folderPathTextField.centerYAnchor),
+            selectFolderButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            selectFolderButton.widthAnchor.constraint(equalToConstant: 120),
+
+            // Behavior Section Header
+            behaviorSectionHeader.topAnchor.constraint(equalTo: folderPathTextField.bottomAnchor, constant: 20),
+            behaviorSectionHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            // Behavior Checkboxes
+            showNotificationsCheckbox.topAnchor.constraint(equalTo: behaviorSectionHeader.bottomAnchor, constant: 10),
+            showNotificationsCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            enableSoundCheckbox.topAnchor.constraint(equalTo: showNotificationsCheckbox.bottomAnchor, constant: 10),
+            enableSoundCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            startMonitoringOnLaunchCheckbox.topAnchor.constraint(equalTo: enableSoundCheckbox.bottomAnchor, constant: 10),
+            startMonitoringOnLaunchCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            launchAtSystemStartupCheckbox.topAnchor.constraint(equalTo: startMonitoringOnLaunchCheckbox.bottomAnchor, constant: 10),
+            launchAtSystemStartupCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            renameFileOnUploadCheckbox.topAnchor.constraint(equalTo: launchAtSystemStartupCheckbox.bottomAnchor, constant: 10),
+            renameFileOnUploadCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            showDockIconCheckbox.topAnchor.constraint(equalTo: renameFileOnUploadCheckbox.bottomAnchor, constant: 10),
+            showDockIconCheckbox.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            // Image Format Section Header
+            imageFormatSectionHeader.topAnchor.constraint(equalTo: showDockIconCheckbox.bottomAnchor, constant: 20),
+            imageFormatSectionHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            // Clipboard Format
+            clipboardFormatLabel.topAnchor.constraint(equalTo: imageFormatSectionHeader.bottomAnchor, constant: 10),
+            clipboardFormatLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            clipboardFormatControl.centerYAnchor.constraint(equalTo: clipboardFormatLabel.centerYAnchor),
+            clipboardFormatControl.leadingAnchor.constraint(equalTo: clipboardFormatLabel.trailingAnchor, constant: 10),
+
+            // JPG Quality
+            jpgQualityLabel.topAnchor.constraint(equalTo: clipboardFormatLabel.bottomAnchor, constant: 10),
+            jpgQualityLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            jpgQualitySlider.centerYAnchor.constraint(equalTo: jpgQualityLabel.centerYAnchor),
+            jpgQualitySlider.leadingAnchor.constraint(equalTo: jpgQualityLabel.trailingAnchor, constant: 10),
+            jpgQualitySlider.widthAnchor.constraint(equalToConstant: 150),
+            jpgQualityValueLabel.centerYAnchor.constraint(equalTo: jpgQualityLabel.centerYAnchor),
+            jpgQualityValueLabel.leadingAnchor.constraint(equalTo: jpgQualitySlider.trailingAnchor, constant: 10),
+
+            // Hotkey Section Header
+            hotkeySectionHeader.topAnchor.constraint(equalTo: jpgQualityLabel.bottomAnchor, constant: 20),
+            hotkeySectionHeader.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            // Hotkey Description
+            hotkeyDescriptionLabel.topAnchor.constraint(equalTo: hotkeySectionHeader.bottomAnchor, constant: 8),
+            hotkeyDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            // Hotkey Recorder Constraints
+            hotkeyRecorderView.topAnchor.constraint(equalTo: hotkeyDescriptionLabel.bottomAnchor, constant: 8),
+            hotkeyRecorderView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            hotkeyRecorderView.widthAnchor.constraint(equalToConstant: 150),
+            hotkeyRecorderView.heightAnchor.constraint(equalToConstant: 24),
+
+            clearHotkeyButton.centerYAnchor.constraint(equalTo: hotkeyRecorderView.centerYAnchor),
+            clearHotkeyButton.leadingAnchor.constraint(equalTo: hotkeyRecorderView.trailingAnchor, constant: 10),
         ])
     }
 
     override func loadView() {
-        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 480, height: 400)) // Оптимизированный размер окна
+        self.view = NSView(frame: NSRect(x: 0, y: 0, width: 480, height: 500)) // Увеличиваем размер окна
+    }
+
+    // MARK: - Helper Methods
+    private func formatFolderPath(_ path: String) -> String {
+        let maxLength = 50 // Максимальная длина отображаемого пути
+
+        guard path.count > maxLength else {
+            return path // Если путь короткий, возвращаем как есть
+        }
+
+        // Разделяем путь на компоненты
+        let components = path.components(separatedBy: "/").filter { !$0.isEmpty }
+
+        guard components.count > 2 else {
+            // Если мало компонентов, просто обрезаем с конца
+            let startIndex = path.startIndex
+            let endIndex = path.index(startIndex, offsetBy: maxLength - 3)
+            return String(path[startIndex..<endIndex]) + "..."
+        }
+
+        // Берем первый и последний компоненты
+        let firstComponent = components.first!
+        let lastComponent = components.last!
+
+        // Вычисляем доступную длину для первого компонента
+        let ellipsis = " ... "
+        let availableLength = maxLength - (String(lastComponent).count + ellipsis.count)
+
+        var result = "/" + firstComponent
+
+        if availableLength > 0 {
+            // Добавляем часть второго компонента, если есть место
+            if components.count > 2 {
+                let secondComponent = components[1]
+                let remainingLength = availableLength - (result.count + 1) // +1 для следующего "/"
+
+                if remainingLength > 0 {
+                    let truncatedSecond = String(secondComponent).prefix(remainingLength)
+                    result += "/" + truncatedSecond
+                }
+            }
+        }
+
+        // Добавляем многоточие и последний компонент
+        result += ellipsis + "/" + lastComponent
+
+        return result
     }
 
     private func setupSFTPTab(in view: NSView) {
@@ -247,114 +368,12 @@ class SettingsViewController: NSViewController {
         stackView.addArrangedSubview(testConnectionButton)
     }
 
-    private func setupClipboardHotkeyTab(in view: NSView) {
-        let stackView = NSStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.orientation = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 20
-        view.addSubview(stackView)
-
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
-
-        // Clipboard Upload Section
-        let clipboardSection = NSStackView()
-        clipboardSection.orientation = .vertical
-        clipboardSection.alignment = .leading
-        clipboardSection.spacing = 10
-
-        let clipboardTitle = NSTextField(labelWithString: "Формат загрузки из буфера обмена")
-        clipboardTitle.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
-        clipboardTitle.textColor = NSColor.labelColor
-
-        let clipboardControlsStack = NSStackView()
-        clipboardControlsStack.orientation = .horizontal
-        clipboardControlsStack.alignment = .centerY
-        clipboardControlsStack.spacing = 10
-
-        clipboardFormatControl.translatesAutoresizingMaskIntoConstraints = false
-        jpgQualityLabel.translatesAutoresizingMaskIntoConstraints = false
-        jpgQualitySlider.translatesAutoresizingMaskIntoConstraints = false
-        jpgQualityValueLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        clipboardControlsStack.addArrangedSubview(clipboardFormatLabel)
-        clipboardControlsStack.addArrangedSubview(clipboardFormatControl)
-
-        clipboardSection.addArrangedSubview(clipboardTitle)
-        clipboardSection.addArrangedSubview(clipboardControlsStack)
-
-        // JPG Quality controls (initially hidden)
-        let jpgControlsStack = NSStackView()
-        jpgControlsStack.orientation = .horizontal
-        jpgControlsStack.alignment = .centerY
-        jpgControlsStack.spacing = 10
-        jpgControlsStack.addArrangedSubview(jpgQualityLabel)
-        jpgControlsStack.addArrangedSubview(jpgQualitySlider)
-        jpgControlsStack.addArrangedSubview(jpgQualityValueLabel)
-
-        clipboardSection.addArrangedSubview(jpgControlsStack)
-
-        // Hotkey Section
-        let hotkeySection = NSStackView()
-        hotkeySection.orientation = .vertical
-        hotkeySection.alignment = .leading
-        hotkeySection.spacing = 10
-
-        let hotkeyTitle = NSTextField(labelWithString: "Горячие клавиши")
-        hotkeyTitle.font = NSFont.boldSystemFont(ofSize: NSFont.systemFontSize)
-        hotkeyTitle.textColor = NSColor.labelColor
-
-        let hotkeyDescription = NSTextField(labelWithString: "Отправить изображение из буфера на сервер:")
-        hotkeyDescription.font = NSFont.systemFont(ofSize: NSFont.smallSystemFontSize)
-        hotkeyDescription.textColor = NSColor.secondaryLabelColor
-        hotkeyDescription.translatesAutoresizingMaskIntoConstraints = false
-
-        let hotkeyControlsStack = NSStackView()
-        hotkeyControlsStack.orientation = .horizontal
-        hotkeyControlsStack.alignment = .centerY
-        hotkeyControlsStack.spacing = 10
-
-        hotkeyRecorderView = HotkeyRecorderView()
-        hotkeyRecorderView.translatesAutoresizingMaskIntoConstraints = false
-        hotkeyRecorderView.delegate = self
-
-        clearHotkeyButton.translatesAutoresizingMaskIntoConstraints = false
-
-        hotkeyControlsStack.addArrangedSubview(hotkeyRecorderView)
-        hotkeyControlsStack.addArrangedSubview(clearHotkeyButton)
-
-        hotkeySection.addArrangedSubview(hotkeyTitle)
-        hotkeySection.addArrangedSubview(hotkeyDescription)
-        hotkeySection.addArrangedSubview(hotkeyControlsStack)
-
-        stackView.addArrangedSubview(clipboardSection)
-        stackView.addArrangedSubview(hotkeySection)
-
-        // Setup targets and actions
-        clipboardFormatControl.target = self
-        clipboardFormatControl.action = #selector(clipboardFormatChanged)
-        jpgQualitySlider.target = self
-        jpgQualitySlider.action = #selector(jpgQualitySliderChanged)
-        clearHotkeyButton.target = self
-        clearHotkeyButton.action = #selector(clearHotkeyClicked)
-
-        // Setup constraints
-        NSLayoutConstraint.activate([
-            hotkeyRecorderView.widthAnchor.constraint(equalToConstant: 150),
-            hotkeyRecorderView.heightAnchor.constraint(equalToConstant: 24),
-            jpgQualitySlider.widthAnchor.constraint(equalToConstant: 150)
-        ])
-    }
-
     private func loadSettings() {
         let defaults = UserDefaults.standard
-
+        
         // General Settings
-        folderPathTextField.stringValue = defaults.string(forKey: "folderPath") ?? FolderMonitor.shared.folderPath
+        let folderPath = defaults.string(forKey: "folderPath") ?? FolderMonitor.shared.folderPath
+        folderPathTextField.stringValue = formatFolderPath(folderPath)
         showNotificationsCheckbox.state = defaults.bool(forKey: "showNotifications") ? .on : .off
         enableSoundCheckbox.state = defaults.bool(forKey: "enableSound") ? .on : .off
         startMonitoringOnLaunchCheckbox.state = defaults.bool(forKey: "startMonitoringOnLaunch") ? .on : .off
@@ -377,11 +396,11 @@ class SettingsViewController: NSViewController {
         sftpPasswordSecureTextField.stringValue = defaults.string(forKey: "sftpPassword") ?? ""
         sftpFolderTextField.stringValue = defaults.string(forKey: "sftpFolder") ?? "/"
         sftpBaseUrlTextField.stringValue = defaults.string(forKey: "sftpBaseUrl") ?? ""
-
+        
         // Update FolderMonitor
         FolderMonitor.shared.folderPath = folderPathTextField.stringValue
         // SFTP settings will be passed to FolderMonitor when needed (e.g., for upload or test connection)
-
+        
         // Load Hotkey
         if let encodedKeyCombo = defaults.data(forKey: "globalHotkey"),
            let keyCombo = try? JSONDecoder().decode(KeyCombo.self, from: encodedKeyCombo) {
@@ -389,105 +408,39 @@ class SettingsViewController: NSViewController {
         } else {
             hotkeyRecorderView.currentKeyCombo = nil
         }
-
-        // Update folder path display with truncation if needed
-        updateFolderPathDisplay()
-    }
-
-    private func updateFolderPathDisplay() {
-        let fullPath = folderPathTextField.stringValue
-        if !fullPath.isEmpty {
-            let truncatedPath = truncatePath(fullPath, maxLength: 45)
-            // Обновляем только если путь действительно изменился (чтобы избежать бесконечной рекурсии)
-            if folderPathTextField.stringValue != truncatedPath {
-                folderPathTextField.stringValue = truncatedPath
-            }
-        }
-    }
-
-    private func truncatePath(_ path: String, maxLength: Int) -> String {
-        // Если путь короче максимальной длины, возвращаем как есть
-        if path.count <= maxLength {
-            return path
-        }
-
-        // Находим компоненты пути
-        let components = path.components(separatedBy: "/").filter { !$0.isEmpty }
-        guard components.count > 1 else {
-            return path
-        }
-
-        // Пытаемся сократить путь, показывая начало и конец
-        let startComponent = components.first ?? ""
-        let endComponents = Array(components.dropFirst())
-
-        // Вычисляем доступную длину для конечных компонентов
-        let availableLength = maxLength - (startComponent + ".../").count - 1
-
-        var result = "/\(startComponent)"
-
-        // Добавляем конечные компоненты, если есть место
-        if availableLength > 0 {
-            var remainingComponents = endComponents
-            var currentLength = 0
-
-            // Идем с конца, пока помещается
-            while !remainingComponents.isEmpty {
-                let component = remainingComponents.last ?? ""
-                let componentWithSlash = "/\(component)"
-
-                if currentLength + componentWithSlash.count <= availableLength {
-                    result += componentWithSlash
-                    currentLength += componentWithSlash.count
-                    remainingComponents.removeLast()
-                } else {
-                    break
-                }
-            }
-
-            // Если есть оставшиеся компоненты, добавляем троеточие
-            if !remainingComponents.isEmpty {
-                result += "/..."
-            }
-        } else {
-            result += "/..."
-        }
-
-        return result
-    }
     }
 
     func saveSettings() {
         let defaults = UserDefaults.standard
-
+        
         // General Settings
-        defaults.set(self.folderPathTextField.stringValue, forKey: "folderPath")
-        defaults.set(self.showNotificationsCheckbox.state == .on, forKey: "showNotifications")
-        defaults.set(self.enableSoundCheckbox.state == .on, forKey: "enableSound")
-        defaults.set(self.startMonitoringOnLaunchCheckbox.state == .on, forKey: "startMonitoringOnLaunch")
-        defaults.set(self.launchAtSystemStartupCheckbox.state == .on, forKey: "launchAtSystemStartup") // Сохраняем состояние чекбокса автозапуска
-        defaults.set(self.renameFileOnUploadCheckbox.state == .on, forKey: "renameFileOnUpload")
-        defaults.set(self.showDockIconCheckbox.state == .on, forKey: "showDockIcon")
+        defaults.set(folderPathTextField.stringValue, forKey: "folderPath")
+        defaults.set(showNotificationsCheckbox.state == .on, forKey: "showNotifications")
+        defaults.set(enableSoundCheckbox.state == .on, forKey: "enableSound")
+        defaults.set(startMonitoringOnLaunchCheckbox.state == .on, forKey: "startMonitoringOnLaunch")
+        defaults.set(launchAtSystemStartupCheckbox.state == .on, forKey: "launchAtSystemStartup") // Сохраняем состояние чекбокса автозапуска
+        defaults.set(renameFileOnUploadCheckbox.state == .on, forKey: "renameFileOnUpload")
+        defaults.set(showDockIconCheckbox.state == .on, forKey: "showDockIcon")
 
         // Clipboard Upload Settings
-        let selectedFormat = (self.clipboardFormatControl.selectedSegment == 0) ? "png" : "jpg"
+        let selectedFormat = (clipboardFormatControl.selectedSegment == 0) ? "png" : "jpg"
         defaults.set(selectedFormat, forKey: "clipboardUploadFormat")
-        defaults.set(Int(self.jpgQualitySlider.doubleValue), forKey: "clipboardJpgQuality")
-
+        defaults.set(Int(jpgQualitySlider.doubleValue), forKey: "clipboardJpgQuality")
+        
         // SFTP Settings
-        defaults.set(self.sftpHostTextField.stringValue, forKey: "sftpHost")
-        defaults.set(self.sftpPortTextField.stringValue, forKey: "sftpPort")
-        defaults.set(self.sftpUserTextField.stringValue, forKey: "sftpUser")
-        defaults.set(self.sftpPasswordSecureTextField.stringValue, forKey: "sftpPassword")
-        defaults.set(self.sftpFolderTextField.stringValue, forKey: "sftpFolder")
-        defaults.set(self.sftpBaseUrlTextField.stringValue, forKey: "sftpBaseUrl")
-
+        defaults.set(sftpHostTextField.stringValue, forKey: "sftpHost")
+        defaults.set(sftpPortTextField.stringValue, forKey: "sftpPort")
+        defaults.set(sftpUserTextField.stringValue, forKey: "sftpUser")
+        defaults.set(sftpPasswordSecureTextField.stringValue, forKey: "sftpPassword")
+        defaults.set(sftpFolderTextField.stringValue, forKey: "sftpFolder")
+        defaults.set(sftpBaseUrlTextField.stringValue, forKey: "sftpBaseUrl")
+        
         // Update LaunchAtLoginManager
-        LaunchAtLoginManager.shared.setLaunchAtLogin(enabled: self.launchAtSystemStartupCheckbox.state == .on)
-
+        LaunchAtLoginManager.shared.setLaunchAtLogin(enabled: launchAtSystemStartupCheckbox.state == .on)
+        
         // Update FolderMonitor
-        FolderMonitor.shared.folderPath = self.folderPathTextField.stringValue
-
+        FolderMonitor.shared.folderPath = folderPathTextField.stringValue
+        
         print("Настройки сохранены.")
     }
 
@@ -501,7 +454,8 @@ class SettingsViewController: NSViewController {
         openPanel.begin { [weak self] (result) in
             if result == .OK {
                 if let url = openPanel.url {
-                    self?.folderPathTextField.stringValue = url.path
+                    let formattedPath = self?.formatFolderPath(url.path) ?? url.path
+                    self?.folderPathTextField.stringValue = formattedPath
                     self?.saveSettings() // Сохраняем настройки немедленно
                 }
             }
@@ -563,10 +517,10 @@ class SettingsViewController: NSViewController {
     }
 
     private func updateJpgQualityVisibility() {
-        let isJPGSelected = self.clipboardFormatControl.selectedSegment == 1 // 0 for PNG, 1 for JPG
-        self.jpgQualityLabel.isHidden = !isJPGSelected
-        self.jpgQualitySlider.isHidden = !isJPGSelected
-        self.jpgQualityValueLabel.isHidden = !isJPGSelected
+        let isJPGSelected = clipboardFormatControl.selectedSegment == 1 // 0 for PNG, 1 for JPG
+        jpgQualityLabel.isHidden = !isJPGSelected
+        jpgQualitySlider.isHidden = !isJPGSelected
+        jpgQualityValueLabel.isHidden = !isJPGSelected
     }
 
     @objc private func testConnectionClicked() {
@@ -630,14 +584,14 @@ extension SettingsViewController: HotkeyRecorderViewDelegate {
 // MARK: - Hotkey Actions
 extension SettingsViewController {
     @objc private func clearHotkeyClicked() {
-        self.hotkeyRecorderView.clearHotkey()
+        hotkeyRecorderView.clearHotkey()
     }
 }
 
 // MARK: - NSTextFieldDelegate for Port field validation
 extension SettingsViewController: NSTextFieldDelegate {
     func controlTextDidChange(_ obj: Notification) {
-        if let textField = obj.object as? NSTextField, textField == self.sftpPortTextField {
+        if let textField = obj.object as? NSTextField, textField == sftpPortTextField {
             // Удаляем все символы, кроме цифр
             let filteredText = textField.stringValue.filter { $0.isNumber }
             if filteredText != textField.stringValue {
