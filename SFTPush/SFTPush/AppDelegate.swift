@@ -107,7 +107,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             defaults.set(true, forKey: "startMonitoringOnLaunch") // По умолчанию: запускать отслеживание при старте
         }
         if defaults.object(forKey: "renameFileOnUpload") == nil {
-            defaults.set(false, forKey: "renameFileOnUpload") // По умолчанию: не переименовывать файлы
+            defaults.set(true, forKey: "renameFileOnUpload") // По умолчанию: переименовывать файлы
+        }
+        if defaults.object(forKey: "clipboardUploadFormat") == nil {
+            defaults.set("jpg", forKey: "clipboardUploadFormat") // По умолчанию: JPG
+        }
+        if defaults.object(forKey: "copyBeforeUpload") == nil {
+            defaults.set(false, forKey: "copyBeforeUpload") // По умолчанию: не копировать в буфер перед загрузкой
+        }
+        if defaults.object(forKey: "copyOnlyFromMonosnap") == nil {
+            defaults.set(false, forKey: "copyOnlyFromMonosnap") // По умолчанию: не копировать только из Monosnap
+        }
+        if defaults.object(forKey: "uploadCopiedFiles") == nil {
+            defaults.set(false, forKey: "uploadCopiedFiles") // По умолчанию: не загружать скопированные файлы
         }
         if defaults.object(forKey: "launchAtSystemStartup") == nil {
             // При первом запуске синхронизируем состояние с LaunchAtLoginManager
@@ -120,9 +132,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                 LaunchAtLoginManager.shared.setLaunchAtLogin(enabled: savedState)
             }
         }
-        if defaults.object(forKey: "uploadCopiedFiles") == nil {
-            defaults.set(true, forKey: "uploadCopiedFiles") // По умолчанию: разрешить загрузку скопированных файлов
-        }
         if defaults.object(forKey: "maxFileSizeLimit") == nil {
             defaults.set(200, forKey: "maxFileSizeLimit") // По умолчанию: 200 Мб
         }
@@ -131,10 +140,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
 
         // Инициализируем и проверяем папки
+        // Если folderPath не установлен, setupFolders отправит .requestFolderPath, который откроет настройки
         _ = FolderMonitor.shared.setupFolders()
 
         // Проверяем настройку автоматического запуска отслеживания
-        if defaults.bool(forKey: "startMonitoringOnLaunch") {
+        // Запускаем мониторинг только если папка выбрана и настройка включена
+        if defaults.bool(forKey: "startMonitoringOnLaunch") && defaults.string(forKey: "folderPath") != nil {
             FolderMonitor.shared.startMonitoring()
             updateMenuStatus()
         }
@@ -145,10 +156,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
-        // Сохраняем настройки перед выходом
-        if let settingsVC = settingsWindowController?.contentViewController as? SettingsViewController {
-            settingsVC.saveSettings()
-        }
+        // Логика сохранения настроек перенесена в SettingsWindowController
         FolderMonitor.shared.stopMonitoring() // Останавливаем отслеживание при завершении работы
         NotificationCenter.default.removeObserver(self) // Отписываемся от всех уведомлений
         
@@ -183,10 +191,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     @objc func toggleFolderMonitoring() {
+        let defaults = UserDefaults.standard
+        let folderPath = defaults.string(forKey: "folderPath")
+
         if FolderMonitor.shared.isMonitoring {
             FolderMonitor.shared.stopMonitoring()
         } else {
-            FolderMonitor.shared.startMonitoring()
+            // Проверяем, выбрана ли папка
+            if let path = folderPath, !path.isEmpty {
+                FolderMonitor.shared.startMonitoring()
+            } else {
+                // Если папка не выбрана, выводим уведомление и открываем настройки
+                sendNotification(title: "Папка не выбрана", subtitle: "Отслеживание не начато", body: "Пожалуйста, укажите папку для отслеживания в настройках.")
+                openSettings()
+            }
         }
         updateMenuStatus()
     }

@@ -13,7 +13,7 @@ class FolderMonitor: NSObject {
     
     static let shared = FolderMonitor() // Singleton для удобства доступа
     
-    var folderPath: String = "/Users/alex/Downloads/ScreenShots/Monosnap" {
+    var folderPath: String = "" { // Убираем путь по умолчанию, теперь он будет запрашиваться
         didSet {
             // Если путь изменился, останавливаем, перенастраиваем папки и перезапускаем мониторинг
             if isMonitoring {
@@ -213,7 +213,7 @@ class FolderMonitor: NSObject {
 
         guard !sftpHost.isEmpty, !sftpUser.isEmpty, !sftpPassword.isEmpty else {
             let fileName = URL(fileURLWithPath: localFilePath).lastPathComponent
-            let errorMsg = "SFTP-настройки (Host, User, Password) не заполнены."
+            let errorMsg = "Проверьте, что SFTP-настройки заполнены и закройте окно настроек для их применения."
             print("Ошибка SFTP для файла \(fileName): \(errorMsg)")
             if isMonitored {
                 moveFile(localFilePath: localFilePath, toFolder: "Error")

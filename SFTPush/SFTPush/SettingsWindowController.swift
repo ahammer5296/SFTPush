@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class SettingsWindowController: NSWindowController {
+class SettingsWindowController: NSWindowController, NSWindowDelegate { // Добавляем соответствие протоколу NSWindowDelegate
 
     convenience init() {
         let window = NSWindow(
@@ -21,11 +21,24 @@ class SettingsWindowController: NSWindowController {
         window.isReleasedWhenClosed = false // Чтобы окно не уничтожалось при закрытии
         self.init(window: window)
         
+        // Устанавливаем делегата окна
+        window.delegate = self
+        
         // Устанавливаем контроллер содержимого
         self.contentViewController = SettingsViewController()
     }
 
     override func windowDidLoad() {
         super.windowDidLoad()
+    }
+    
+    // MARK: - NSWindowDelegate
+    
+    func windowWillClose(_ notification: Notification) {
+        // При закрытии окна настроек сохраняем все изменения
+        if let settingsVC = contentViewController as? SettingsViewController {
+            settingsVC.saveSettings()
+            print("Настройки сохранены при закрытии окна.")
+        }
     }
 }
