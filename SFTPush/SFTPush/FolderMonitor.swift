@@ -13,7 +13,7 @@ class FolderMonitor: NSObject {
     
     static let shared = FolderMonitor() // Singleton для удобства доступа
     
-    var folderPath: String = "" { // Убираем путь по умолчанию, теперь он будет запрашиваться
+    var folderPath: String = UserDefaults.standard.string(forKey: "folderPath") ?? "" {
         didSet {
             // Если путь изменился, останавливаем, перенастраиваем папки и перезапускаем мониторинг
             if isMonitoring {
@@ -58,6 +58,12 @@ class FolderMonitor: NSObject {
     // MARK: - Public Methods
     
     func setupFolders() -> Bool {
+        if folderPath.isEmpty {
+            print("Путь к папке не установлен. Пожалуйста, укажите его в настройках.")
+            NotificationCenter.default.post(name: .requestFolderPath, object: nil)
+            return false
+        }
+        
         let fileManager = FileManager.default
         let mainFolderURL = URL(fileURLWithPath: folderPath)
         
@@ -65,9 +71,7 @@ class FolderMonitor: NSObject {
         var isDirectory: ObjCBool = false
         if !fileManager.fileExists(atPath: mainFolderURL.path, isDirectory: &isDirectory) || !isDirectory.boolValue {
             // Папка не существует, запрашиваем у пользователя
-            // Временно, пока нет окна настроек, просто выводим сообщение
             print("Основная папка для отслеживания не найдена: \(folderPath). Пожалуйста, укажите ее в настройках.")
-            // Отправляем уведомление, чтобы AppDelegate мог запросить у пользователя папку
             NotificationCenter.default.post(name: .requestFolderPath, object: nil)
             return false
         }
@@ -213,7 +217,7 @@ class FolderMonitor: NSObject {
 
         guard !sftpHost.isEmpty, !sftpUser.isEmpty, !sftpPassword.isEmpty else {
             let fileName = URL(fileURLWithPath: localFilePath).lastPathComponent
-            let errorMsg = "Проверьте, что SFTP-настройки заполнены и закройте окно настроек для их применения."
+            let errorMsg = "SFTP-настройки (Host, User, Password) не заполнены."
             print("Ошибка SFTP для файла \(fileName): \(errorMsg)")
             if isMonitored {
                 moveFile(localFilePath: localFilePath, toFolder: "Error")

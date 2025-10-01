@@ -65,7 +65,7 @@ class SettingsViewController: NSViewController {
     
     override func viewWillDisappear() {
         super.viewWillDisappear()
-        // Логика сохранения перенесена в SettingsWindowController
+        // saveSettings() // Логика сохранения перенесена в AppDelegate
     }
 
     private func setupUI() {

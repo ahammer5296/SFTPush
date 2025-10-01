@@ -69,16 +69,6 @@
 			path = SFTPush;
 			sourceTree = "<group>";
 		};
-		FA1655912E843D0800ADD6F8 /* SFTPushTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SFTPushTests;
-			sourceTree = "<group>";
-		};
-		FA16559B2E843D0800ADD6F8 /* SFTPushUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SFTPushUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,8 +102,6 @@
 			children = (
 				FAAD233D2E85C9490046F0EE /* Assets.xcassets */,
 				FA16557F2E843D0600ADD6F8 /* SFTPush */,
-				FA1655912E843D0800ADD6F8 /* SFTPushTests */,
-				FA16559B2E843D0800ADD6F8 /* SFTPushUITests */,
 				FA16557E2E843D0600ADD6F8 /* Products */,
 				FA37BE442E848C8900051617 /* Frameworks */,
 			);
@@ -176,9 +164,6 @@
 			dependencies = (
 				FA1655902E843D0800ADD6F8 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				FA1655912E843D0800ADD6F8 /* SFTPushTests */,
-			);
 			name = SFTPushTests;
 			packageProductDependencies = (
 			);
@@ -198,9 +183,6 @@
 			);
 			dependencies = (
 				FA16559A2E843D0800ADD6F8 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				FA16559B2E843D0800ADD6F8 /* SFTPushUITests */,
 			);
 			name = SFTPushUITests;
 			packageProductDependencies = (
@@ -460,7 +442,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -493,7 +475,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
