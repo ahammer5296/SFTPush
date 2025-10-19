@@ -1,0 +1,688 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA012345678901 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA012345678902 /* ViewController.swift */; };
+		FA112233445566 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA112233445567 /* Info.plist */; };
+		FA123456789012 /* AccessibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA123456789013 /* AccessibilityManager.swift */; };
+		FA223344556677 /* Base.lproj/Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA223344556678 /* Base.lproj/Main.storyboard */; };
+		FA234567890123 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA234567890124 /* AppDelegate.swift */; };
+		FA2AA8202E8491D200560D7A /* mft.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2AA81F2E8491D200560D7A /* mft.framework */; };
+		FA2AA8212E8491D200560D7A /* mft.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA2AA81F2E8491D200560D7A /* mft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA334455667788 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		FA345678901234 /* FolderMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA345678901235 /* FolderMonitor.swift */; };
+		FA456789012345 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA456789012346 /* HotkeyManager.swift */; };
+		FA567890123456 /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA567890123457 /* HotkeyRecorderView.swift */; };
+		FA678901234567 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA678901234568 /* LaunchAtLoginManager.swift */; };
+		FA789012345678 /* NSStatusBarButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA789012345679 /* NSStatusBarButton+Extension.swift */; };
+		FA890123456789 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA890123456790 /* SettingsViewController.swift */; };
+		FA901234567890 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA901234567891 /* SettingsWindowController.swift */; };
+		FAB8320D2EA571FF00CE182B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB8320C2EA571FF00CE182B /* Assets.xcassets */; };
+		FAB8321A2EA5721800CE182B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB832132EA5721800CE182B /* Info.plist */; };
+		FAB8321B2EA5721800CE182B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832162EA5721800CE182B /* SettingsViewController.swift */; };
+		FAB8321C2EA5721800CE182B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB8320F2EA5721800CE182B /* AppDelegate.swift */; };
+		FAB8321D2EA5721800CE182B /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832122EA5721800CE182B /* HotkeyRecorderView.swift */; };
+		FAB8321E2EA5721800CE182B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832192EA5721800CE182B /* ViewController.swift */; };
+		FAB8321F2EA5721800CE182B /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832172EA5721800CE182B /* SettingsWindowController.swift */; };
+		FAB832202EA5721800CE182B /* NSStatusBarButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832152EA5721800CE182B /* NSStatusBarButton+Extension.swift */; };
+		FAB832212EA5721800CE182B /* FolderMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832102EA5721800CE182B /* FolderMonitor.swift */; };
+		FAB832222EA5721800CE182B /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832112EA5721800CE182B /* HotkeyManager.swift */; };
+		FAB832232EA5721800CE182B /* AccessibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB8320E2EA5721800CE182B /* AccessibilityManager.swift */; };
+		FAB832242EA5721800CE182B /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832142EA5721800CE182B /* LaunchAtLoginManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FA16558F2E843D0800ADD6F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA1655752E843D0600ADD6F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA16557C2E843D0600ADD6F8;
+			remoteInfo = SFTPush;
+		};
+		FA1655992E843D0800ADD6F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA1655752E843D0600ADD6F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA16557C2E843D0600ADD6F8;
+			remoteInfo = SFTPush;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FA2AA8222E8491D200560D7A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA2AA8212E8491D200560D7A /* mft.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FA012345678902 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FA112233445567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FA123456789013 /* AccessibilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityManager.swift; sourceTree = "<group>"; };
+		FA16557D2E843D0600ADD6F8 /* SFTPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFTPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA16558E2E843D0800ADD6F8 /* SFTPushTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTPushTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1655982E843D0800ADD6F8 /* SFTPushUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTPushUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA223344556678 /* Base.lproj/Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA234567890124 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA2AA81F2E8491D200560D7A /* mft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mft.framework; sourceTree = "<group>"; };
+		FA3089872EA554AB0090BD78 /* SFTPush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SFTPush.xcodeproj; sourceTree = "<group>"; };
+		FA345678901235 /* FolderMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderMonitor.swift; sourceTree = "<group>"; };
+		FA456789012346 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		FA567890123457 /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
+		FA678901234568 /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
+		FA789012345679 /* NSStatusBarButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSStatusBarButton+Extension.swift"; sourceTree = "<group>"; };
+		FA890123456790 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FA901234567891 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		FAB8320C2EA571FF00CE182B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FAB8320E2EA5721800CE182B /* AccessibilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityManager.swift; sourceTree = "<group>"; };
+		FAB8320F2EA5721800CE182B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FAB832102EA5721800CE182B /* FolderMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderMonitor.swift; sourceTree = "<group>"; };
+		FAB832112EA5721800CE182B /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
+		FAB832122EA5721800CE182B /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
+		FAB832132EA5721800CE182B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAB832142EA5721800CE182B /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
+		FAB832152EA5721800CE182B /* NSStatusBarButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSStatusBarButton+Extension.swift"; sourceTree = "<group>"; };
+		FAB832162EA5721800CE182B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FAB832172EA5721800CE182B /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
+		FAB832182EA5721800CE182B /* SFTPush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SFTPush.entitlements; sourceTree = "<group>"; };
+		FAB832192EA5721800CE182B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA16557A2E843D0600ADD6F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA2AA8202E8491D200560D7A /* mft.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA16558B2E843D0800ADD6F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1655952E843D0800ADD6F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA1655742E843D0600ADD6F8 = {
+			isa = PBXGroup;
+			children = (
+				FAB8320C2EA571FF00CE182B /* Assets.xcassets */,
+				FAB8320E2EA5721800CE182B /* AccessibilityManager.swift */,
+				FAB8320F2EA5721800CE182B /* AppDelegate.swift */,
+				FAB832102EA5721800CE182B /* FolderMonitor.swift */,
+				FAB832112EA5721800CE182B /* HotkeyManager.swift */,
+				FAB832122EA5721800CE182B /* HotkeyRecorderView.swift */,
+				FAB832132EA5721800CE182B /* Info.plist */,
+				FAB832142EA5721800CE182B /* LaunchAtLoginManager.swift */,
+				FAB832152EA5721800CE182B /* NSStatusBarButton+Extension.swift */,
+				FAB832162EA5721800CE182B /* SettingsViewController.swift */,
+				FAB832172EA5721800CE182B /* SettingsWindowController.swift */,
+				FAB832182EA5721800CE182B /* SFTPush.entitlements */,
+				FAB832192EA5721800CE182B /* ViewController.swift */,
+				FA16557E2E843D0600ADD6F8 /* Products */,
+				FA37BE442E848C8900051617 /* Frameworks */,
+				FAB8320B2EA571EF00CE182B /* Recovered References */,
+			);
+			sourceTree = "<group>";
+		};
+		FA16557E2E843D0600ADD6F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA16557D2E843D0600ADD6F8 /* SFTPush.app */,
+				FA16558E2E843D0800ADD6F8 /* SFTPushTests.xctest */,
+				FA1655982E843D0800ADD6F8 /* SFTPushUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA3089882EA554AB0090BD78 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA37BE442E848C8900051617 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA2AA81F2E8491D200560D7A /* mft.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FAB8320B2EA571EF00CE182B /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				FA123456789013 /* AccessibilityManager.swift */,
+				FA234567890124 /* AppDelegate.swift */,
+				FA345678901235 /* FolderMonitor.swift */,
+				FA456789012346 /* HotkeyManager.swift */,
+				FA567890123457 /* HotkeyRecorderView.swift */,
+				FA678901234568 /* LaunchAtLoginManager.swift */,
+				FA789012345679 /* NSStatusBarButton+Extension.swift */,
+				FA890123456790 /* SettingsViewController.swift */,
+				FA901234567891 /* SettingsWindowController.swift */,
+				FA012345678902 /* ViewController.swift */,
+				FA112233445567 /* Info.plist */,
+				FA223344556678 /* Base.lproj/Main.storyboard */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA16557C2E843D0600ADD6F8 /* SFTPush */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1655A22E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPush" */;
+			buildPhases = (
+				FA1655792E843D0600ADD6F8 /* Sources */,
+				FA16557A2E843D0600ADD6F8 /* Frameworks */,
+				FA16557B2E843D0600ADD6F8 /* Resources */,
+				FA2AA8222E8491D200560D7A /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SFTPush;
+			packageProductDependencies = (
+			);
+			productName = SFTPush;
+			productReference = FA16557D2E843D0600ADD6F8 /* SFTPush.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FA16558D2E843D0800ADD6F8 /* SFTPushTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1655A52E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPushTests" */;
+			buildPhases = (
+				FA16558A2E843D0800ADD6F8 /* Sources */,
+				FA16558B2E843D0800ADD6F8 /* Frameworks */,
+				FA16558C2E843D0800ADD6F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA1655902E843D0800ADD6F8 /* PBXTargetDependency */,
+			);
+			name = SFTPushTests;
+			packageProductDependencies = (
+			);
+			productName = SFTPushTests;
+			productReference = FA16558E2E843D0800ADD6F8 /* SFTPushTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FA1655972E843D0800ADD6F8 /* SFTPushUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1655A82E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPushUITests" */;
+			buildPhases = (
+				FA1655942E843D0800ADD6F8 /* Sources */,
+				FA1655952E843D0800ADD6F8 /* Frameworks */,
+				FA1655962E843D0800ADD6F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA16559A2E843D0800ADD6F8 /* PBXTargetDependency */,
+			);
+			name = SFTPushUITests;
+			packageProductDependencies = (
+			);
+			productName = SFTPushUITests;
+			productReference = FA1655982E843D0800ADD6F8 /* SFTPushUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA1655752E843D0600ADD6F8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					FA16557C2E843D0600ADD6F8 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					FA16558D2E843D0800ADD6F8 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = FA16557C2E843D0600ADD6F8;
+					};
+					FA1655972E843D0800ADD6F8 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = FA16557C2E843D0600ADD6F8;
+					};
+				};
+			};
+			buildConfigurationList = FA1655782E843D0600ADD6F8 /* Build configuration list for PBXProject "SFTPush" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA1655742E843D0600ADD6F8;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = FA16557E2E843D0600ADD6F8 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = FA3089882EA554AB0090BD78 /* Products */;
+					ProjectRef = FA3089872EA554AB0090BD78 /* SFTPush.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				FA16557C2E843D0600ADD6F8 /* SFTPush */,
+				FA16558D2E843D0800ADD6F8 /* SFTPushTests */,
+				FA1655972E843D0800ADD6F8 /* SFTPushUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA16557B2E843D0600ADD6F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA112233445566 /* Info.plist in Resources */,
+				FA223344556677 /* Base.lproj/Main.storyboard in Resources */,
+				FAB8320D2EA571FF00CE182B /* Assets.xcassets in Resources */,
+				FAB8321A2EA5721800CE182B /* Info.plist in Resources */,
+				FA334455667788 /* (null) in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA16558C2E843D0800ADD6F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1655962E843D0800ADD6F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA1655792E843D0600ADD6F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA123456789012 /* AccessibilityManager.swift in Sources */,
+				FA234567890123 /* AppDelegate.swift in Sources */,
+				FA345678901234 /* FolderMonitor.swift in Sources */,
+				FA456789012345 /* HotkeyManager.swift in Sources */,
+				FA567890123456 /* HotkeyRecorderView.swift in Sources */,
+				FA678901234567 /* LaunchAtLoginManager.swift in Sources */,
+				FA789012345678 /* NSStatusBarButton+Extension.swift in Sources */,
+				FA890123456789 /* SettingsViewController.swift in Sources */,
+				FA901234567890 /* SettingsWindowController.swift in Sources */,
+				FA012345678901 /* ViewController.swift in Sources */,
+				FAB8321B2EA5721800CE182B /* SettingsViewController.swift in Sources */,
+				FAB8321C2EA5721800CE182B /* AppDelegate.swift in Sources */,
+				FAB8321D2EA5721800CE182B /* HotkeyRecorderView.swift in Sources */,
+				FAB8321E2EA5721800CE182B /* ViewController.swift in Sources */,
+				FAB8321F2EA5721800CE182B /* SettingsWindowController.swift in Sources */,
+				FAB832202EA5721800CE182B /* NSStatusBarButton+Extension.swift in Sources */,
+				FAB832212EA5721800CE182B /* FolderMonitor.swift in Sources */,
+				FAB832222EA5721800CE182B /* HotkeyManager.swift in Sources */,
+				FAB832232EA5721800CE182B /* AccessibilityManager.swift in Sources */,
+				FAB832242EA5721800CE182B /* LaunchAtLoginManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA16558A2E843D0800ADD6F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1655942E843D0800ADD6F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA1655902E843D0800ADD6F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA16557C2E843D0600ADD6F8 /* SFTPush */;
+			targetProxy = FA16558F2E843D0800ADD6F8 /* PBXContainerItemProxy */;
+		};
+		FA16559A2E843D0800ADD6F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA16557C2E843D0600ADD6F8 /* SFTPush */;
+			targetProxy = FA1655992E843D0800ADD6F8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FA1655A02E843D0800ADD6F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "/Users/alex/Library/Developer/Xcode/DerivedData/mft-drkppoxotrsmyqbfbpcvgfycvmrp/Build/Products/Debug";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FA1655A12E843D0800ADD6F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		FA1655A32E843D0800ADD6F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SFTPush.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 1.1.5;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPush;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FA1655A42E843D0800ADD6F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SFTPush.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MARKETING_VERSION = 1.1.5;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPush;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FA1655A62E843D0800ADD6F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPushTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SFTPush.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SFTPush";
+			};
+			name = Debug;
+		};
+		FA1655A72E843D0800ADD6F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPushTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SFTPush.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SFTPush";
+			};
+			name = Release;
+		};
+		FA1655A92E843D0800ADD6F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPushUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SFTPush;
+			};
+			name = Debug;
+		};
+		FA1655AA2E843D0800ADD6F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPushUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = SFTPush;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA1655782E843D0600ADD6F8 /* Build configuration list for PBXProject "SFTPush" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1655A02E843D0800ADD6F8 /* Debug */,
+				FA1655A12E843D0800ADD6F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1655A22E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPush" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1655A32E843D0800ADD6F8 /* Debug */,
+				FA1655A42E843D0800ADD6F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1655A52E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPushTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1655A62E843D0800ADD6F8 /* Debug */,
+				FA1655A72E843D0800ADD6F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1655A82E843D0800ADD6F8 /* Build configuration list for PBXNativeTarget "SFTPushUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1655A92E843D0800ADD6F8 /* Debug */,
+				FA1655AA2E843D0800ADD6F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA1655752E843D0600ADD6F8 /* Project object */;
+}
