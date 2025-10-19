@@ -7,33 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FA012345678901 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA012345678902 /* ViewController.swift */; };
-		FA112233445566 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA112233445567 /* Info.plist */; };
-		FA123456789012 /* AccessibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA123456789013 /* AccessibilityManager.swift */; };
-		FA223344556677 /* Base.lproj/Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA223344556678 /* Base.lproj/Main.storyboard */; };
-		FA234567890123 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA234567890124 /* AppDelegate.swift */; };
 		FA2AA8202E8491D200560D7A /* mft.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2AA81F2E8491D200560D7A /* mft.framework */; };
 		FA2AA8212E8491D200560D7A /* mft.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA2AA81F2E8491D200560D7A /* mft.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FA334455667788 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		FA345678901234 /* FolderMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA345678901235 /* FolderMonitor.swift */; };
-		FA456789012345 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA456789012346 /* HotkeyManager.swift */; };
-		FA567890123456 /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA567890123457 /* HotkeyRecorderView.swift */; };
-		FA678901234567 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA678901234568 /* LaunchAtLoginManager.swift */; };
-		FA789012345678 /* NSStatusBarButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA789012345679 /* NSStatusBarButton+Extension.swift */; };
-		FA890123456789 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA890123456790 /* SettingsViewController.swift */; };
-		FA901234567890 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA901234567891 /* SettingsWindowController.swift */; };
-		FAB8320D2EA571FF00CE182B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB8320C2EA571FF00CE182B /* Assets.xcassets */; };
-		FAB8321A2EA5721800CE182B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB832132EA5721800CE182B /* Info.plist */; };
-		FAB8321B2EA5721800CE182B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832162EA5721800CE182B /* SettingsViewController.swift */; };
-		FAB8321C2EA5721800CE182B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB8320F2EA5721800CE182B /* AppDelegate.swift */; };
-		FAB8321D2EA5721800CE182B /* HotkeyRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832122EA5721800CE182B /* HotkeyRecorderView.swift */; };
-		FAB8321E2EA5721800CE182B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832192EA5721800CE182B /* ViewController.swift */; };
-		FAB8321F2EA5721800CE182B /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832172EA5721800CE182B /* SettingsWindowController.swift */; };
-		FAB832202EA5721800CE182B /* NSStatusBarButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832152EA5721800CE182B /* NSStatusBarButton+Extension.swift */; };
-		FAB832212EA5721800CE182B /* FolderMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832102EA5721800CE182B /* FolderMonitor.swift */; };
-		FAB832222EA5721800CE182B /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832112EA5721800CE182B /* HotkeyManager.swift */; };
-		FAB832232EA5721800CE182B /* AccessibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB8320E2EA5721800CE182B /* AccessibilityManager.swift */; };
-		FAB832242EA5721800CE182B /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB832142EA5721800CE182B /* LaunchAtLoginManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,37 +43,33 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		FA012345678902 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FA112233445567 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		FA123456789013 /* AccessibilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityManager.swift; sourceTree = "<group>"; };
 		FA16557D2E843D0600ADD6F8 /* SFTPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SFTPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA16558E2E843D0800ADD6F8 /* SFTPushTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTPushTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1655982E843D0800ADD6F8 /* SFTPushUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTPushUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA223344556678 /* Base.lproj/Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FA234567890124 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA2AA81F2E8491D200560D7A /* mft.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = mft.framework; sourceTree = "<group>"; };
-		FA3089872EA554AB0090BD78 /* SFTPush.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SFTPush.xcodeproj; sourceTree = "<group>"; };
-		FA345678901235 /* FolderMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderMonitor.swift; sourceTree = "<group>"; };
-		FA456789012346 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
-		FA567890123457 /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
-		FA678901234568 /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
-		FA789012345679 /* NSStatusBarButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSStatusBarButton+Extension.swift"; sourceTree = "<group>"; };
-		FA890123456790 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		FA901234567891 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
-		FAB8320C2EA571FF00CE182B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FAB8320E2EA5721800CE182B /* AccessibilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityManager.swift; sourceTree = "<group>"; };
-		FAB8320F2EA5721800CE182B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAB832102EA5721800CE182B /* FolderMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderMonitor.swift; sourceTree = "<group>"; };
-		FAB832112EA5721800CE182B /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
-		FAB832122EA5721800CE182B /* HotkeyRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyRecorderView.swift; sourceTree = "<group>"; };
-		FAB832132EA5721800CE182B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FAB832142EA5721800CE182B /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginManager.swift; sourceTree = "<group>"; };
-		FAB832152EA5721800CE182B /* NSStatusBarButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSStatusBarButton+Extension.swift"; sourceTree = "<group>"; };
-		FAB832162EA5721800CE182B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		FAB832172EA5721800CE182B /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
-		FAB832182EA5721800CE182B /* SFTPush.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SFTPush.entitlements; sourceTree = "<group>"; };
-		FAB832192EA5721800CE182B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FAAD233D2E85C9490046F0EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = SFTPush/Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FA4996702E86EF5600FFC9D9 /* Exceptions for "SFTPush" folder in "SFTPush" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FA16557C2E843D0600ADD6F8 /* SFTPush */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		FA16557F2E843D0600ADD6F8 /* SFTPush */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FA4996702E86EF5600FFC9D9 /* Exceptions for "SFTPush" folder in "SFTPush" target */,
+			);
+			path = SFTPush;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		FA16557A2E843D0600ADD6F8 /* Frameworks */ = {
@@ -129,22 +100,10 @@
 		FA1655742E843D0600ADD6F8 = {
 			isa = PBXGroup;
 			children = (
-				FAB8320C2EA571FF00CE182B /* Assets.xcassets */,
-				FAB8320E2EA5721800CE182B /* AccessibilityManager.swift */,
-				FAB8320F2EA5721800CE182B /* AppDelegate.swift */,
-				FAB832102EA5721800CE182B /* FolderMonitor.swift */,
-				FAB832112EA5721800CE182B /* HotkeyManager.swift */,
-				FAB832122EA5721800CE182B /* HotkeyRecorderView.swift */,
-				FAB832132EA5721800CE182B /* Info.plist */,
-				FAB832142EA5721800CE182B /* LaunchAtLoginManager.swift */,
-				FAB832152EA5721800CE182B /* NSStatusBarButton+Extension.swift */,
-				FAB832162EA5721800CE182B /* SettingsViewController.swift */,
-				FAB832172EA5721800CE182B /* SettingsWindowController.swift */,
-				FAB832182EA5721800CE182B /* SFTPush.entitlements */,
-				FAB832192EA5721800CE182B /* ViewController.swift */,
+				FAAD233D2E85C9490046F0EE /* Assets.xcassets */,
+				FA16557F2E843D0600ADD6F8 /* SFTPush */,
 				FA16557E2E843D0600ADD6F8 /* Products */,
 				FA37BE442E848C8900051617 /* Frameworks */,
-				FAB8320B2EA571EF00CE182B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,38 +117,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FA3089882EA554AB0090BD78 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		FA37BE442E848C8900051617 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				FA2AA81F2E8491D200560D7A /* mft.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FAB8320B2EA571EF00CE182B /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				FA123456789013 /* AccessibilityManager.swift */,
-				FA234567890124 /* AppDelegate.swift */,
-				FA345678901235 /* FolderMonitor.swift */,
-				FA456789012346 /* HotkeyManager.swift */,
-				FA567890123457 /* HotkeyRecorderView.swift */,
-				FA678901234568 /* LaunchAtLoginManager.swift */,
-				FA789012345679 /* NSStatusBarButton+Extension.swift */,
-				FA890123456790 /* SettingsViewController.swift */,
-				FA901234567891 /* SettingsWindowController.swift */,
-				FA012345678902 /* ViewController.swift */,
-				FA112233445567 /* Info.plist */,
-				FA223344556678 /* Base.lproj/Main.storyboard */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +140,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				FA16557F2E843D0600ADD6F8 /* SFTPush */,
 			);
 			name = SFTPush;
 			packageProductDependencies = (
@@ -292,12 +228,6 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FA16557E2E843D0600ADD6F8 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FA3089882EA554AB0090BD78 /* Products */;
-					ProjectRef = FA3089872EA554AB0090BD78 /* SFTPush.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				FA16557C2E843D0600ADD6F8 /* SFTPush */,
@@ -312,11 +242,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA112233445566 /* Info.plist in Resources */,
-				FA223344556677 /* Base.lproj/Main.storyboard in Resources */,
-				FAB8320D2EA571FF00CE182B /* Assets.xcassets in Resources */,
-				FAB8321A2EA5721800CE182B /* Info.plist in Resources */,
-				FA334455667788 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,26 +266,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA123456789012 /* AccessibilityManager.swift in Sources */,
-				FA234567890123 /* AppDelegate.swift in Sources */,
-				FA345678901234 /* FolderMonitor.swift in Sources */,
-				FA456789012345 /* HotkeyManager.swift in Sources */,
-				FA567890123456 /* HotkeyRecorderView.swift in Sources */,
-				FA678901234567 /* LaunchAtLoginManager.swift in Sources */,
-				FA789012345678 /* NSStatusBarButton+Extension.swift in Sources */,
-				FA890123456789 /* SettingsViewController.swift in Sources */,
-				FA901234567890 /* SettingsWindowController.swift in Sources */,
-				FA012345678901 /* ViewController.swift in Sources */,
-				FAB8321B2EA5721800CE182B /* SettingsViewController.swift in Sources */,
-				FAB8321C2EA5721800CE182B /* AppDelegate.swift in Sources */,
-				FAB8321D2EA5721800CE182B /* HotkeyRecorderView.swift in Sources */,
-				FAB8321E2EA5721800CE182B /* ViewController.swift in Sources */,
-				FAB8321F2EA5721800CE182B /* SettingsWindowController.swift in Sources */,
-				FAB832202EA5721800CE182B /* NSStatusBarButton+Extension.swift in Sources */,
-				FAB832212EA5721800CE182B /* FolderMonitor.swift in Sources */,
-				FAB832222EA5721800CE182B /* HotkeyManager.swift in Sources */,
-				FAB832232EA5721800CE182B /* AccessibilityManager.swift in Sources */,
-				FAB832242EA5721800CE182B /* LaunchAtLoginManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +423,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SFTPush.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SFTPush/SFTPush.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -527,7 +432,7 @@
 					"$(PROJECT_DIR)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = SFTPush/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -537,7 +442,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 1.1.5;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -551,7 +456,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SFTPush.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SFTPush/SFTPush.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -560,7 +465,7 @@
 					"$(PROJECT_DIR)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = SFTPush/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
@@ -570,7 +475,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
-				MARKETING_VERSION = 1.1.5;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.ahammer.SFTPush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;

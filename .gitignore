@@ -1,42 +1,16 @@
-# Xcode
-*.xcodeproj/xcuserdata/
-*.xcodeproj/project.xcworkspace/xcuserdata/
-*.xcworkspace/xcuserdata/
-*.xcworkspace/contents.xcworkspacedata
-
-# Build products
-build/
-DerivedData/
-*.app/Contents/MacOS/SFTPush.debug.dylib
-*.app/Contents/MacOS/SFTPush
-*.app/Contents/Resources/Assets.car
-*.app/Contents/Resources/AppIcon.icns
-
-# Swift Package Manager
-.pacakages/
-Build/
-*.build/
-
-# CocoaPods
-Pods/
-
-# Carthage
-Carthage/
-
 # macOS
 .DS_Store
 
-# Environment variables
-.env
-.env.local
+# Xcode
+build/
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcscmblueprint
+*.xcschememanagement
 
-# Logs
-*.log
-
-# Archives
-*.zip
-*.dmg
+# Swift Package Manager
+.build/
+Packages/
 
 # Frameworks
-*.framework/Versions/A/mft
-*.framework/Versions/A/Resources/Info.plist
+mft.framework/
